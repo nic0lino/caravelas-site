@@ -6,7 +6,7 @@ import { Instagram } from '../icons';
 export interface TagView {
   id: string;
   href: string;
-  handle: string; // "@name"
+  handle: string; // "name" (shown without the @)
   label: string; // aria-label
   side: 'left' | 'right' | 'gym';
 }
@@ -32,13 +32,15 @@ interface Placement { A: { x: number; y: number }; B: { x: number; y: number } }
  * another tag) it swings to the other side of the tagged point — mirrored horizontally, vertically or both — and only
  * if nothing fits does it get pushed inside. So a tag never leaves through the margins.
  */
-function place(tags: TagView[], boxes: Record<string, Box>, size: number, vis: Visible): Placement[] {
+function place(tags: TagView[], boxes: Record<string, Box>, size: number, vis: Visible, follow: { side: Side; x: number; y: number } | null): Placement[] {
   const taken: Rect[] = [];
   return tags.map((t) => {
     const spot = SPOTS[t.side];
     const box = boxes[t.id] ?? { w: 130, h: 26 };
-    const A = { x: spot.anchor.x * size, y: spot.anchor.y * size };
-    const P = { x: spot.bubble.x * size, y: spot.bubble.y * size };
+    const following = follow?.side === t.side;
+    // following: the cursor is the tagged spot and the bubble sits diagonally beside it (down-right first)
+    const A = following ? { x: follow.x, y: follow.y } : { x: spot.anchor.x * size, y: spot.anchor.y * size };
+    const P = following ? { x: A.x + box.w / 2 + 12, y: A.y + box.h / 2 + 16 } : { x: spot.bubble.x * size, y: spot.bubble.y * size };
     const rect = (c: { x: number; y: number }): Rect => ({ l: c.x - box.w / 2, t: c.y - box.h / 2, r: c.x + box.w / 2, b: c.y + box.h / 2 });
     const inside = (r: Rect) => r.l >= vis.left + MARGIN && r.r <= vis.right - MARGIN && r.t >= vis.top + MARGIN && r.b <= vis.bottom - MARGIN;
     const clear = (r: Rect) => taken.every((o) => r.r + GAP <= o.l || r.l - GAP >= o.r || r.b + GAP <= o.t || r.t - GAP >= o.b);
@@ -57,15 +59,29 @@ function place(tags: TagView[], boxes: Record<string, Box>, size: number, vis: V
 }
 
 type Phase = 'hidden' | 'in' | 'out';
+type Side = TagView['side'];
+
+/**
+ * Which tag a point of the photo belongs to (x, y as fractions of the square photo): her half (face and chest),
+ * his half, or the rack bars in the background for the gym.
+ */
+function zoneAt(x: number, y: number): Side {
+  if (x >= 0.78 && y <= 0.42) return 'gym';
+  return x < 0.455 ? 'left' : 'right';
+}
 
 /**
  * Instagram-style tags on the photo. The little triangle always points at the tagged spot.
- * Touch devices: they appear by themselves ~1.2s after the photo is seen. Pointer devices: they unfold
- * (with a small wobble) when the photo is hovered or when a tag receives focus.
+ * Touch devices: all appear by themselves ~1.2s after the photo is seen.
+ * Pointer devices: hovering a person (face or chest) unfolds only their tag, with a small wobble; moving to the other
+ * person swaps it. Hovering the rack bars shows the gym's. Tags are also revealed by keyboard focus.
  */
 export function PhotoTags({ tags }: { tags: TagView[] }) {
   const root = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState<Phase>('hidden');
+  const [active, setActive] = useState<Side | null>(null); // pointer / focus: the one tag on show
+  const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null); // pointer position inside the photo
+  const [revealAll, setRevealAll] = useState(false); // touch: every tag, once the photo has been seen
+  const [shown, setShown] = useState<Record<string, boolean>>({}); // has been out at least once (so it can animate away)
   const [canHover, setCanHover] = useState(true);
   const [size, setSize] = useState(0);
   const [vis, setVis] = useState<Visible | null>(null);
@@ -110,7 +126,7 @@ export function PhotoTags({ tags }: { tags: TagView[] }) {
     let timer: ReturnType<typeof setTimeout> | undefined;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e!.isIntersecting) timer = setTimeout(() => setPhase('in'), 1200);
+        if (e!.isIntersecting) timer = setTimeout(() => setRevealAll(true), 1200);
         else clearTimeout(timer);
       },
       { threshold: 0.25 }, // only part of the square photo is visible (it is cropped by the section)
@@ -122,35 +138,69 @@ export function PhotoTags({ tags }: { tags: TagView[] }) {
   const onMeasure = useCallback((id: string, w: number, h: number) => {
     setBoxes((b) => (b[id]?.w === w && b[id]?.h === h ? b : { ...b, [id]: { w, h } }));
   }, []);
-  const show = useCallback(() => setPhase('in'), []);
-  const hide = useCallback(() => setPhase((p) => (p === 'in' ? 'out' : p)), []);
+  const frame = useRef(0);
+  const onMove = useCallback((e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('a')) return; // on the tag itself: it holds still so it can be clicked
+    const { clientX, clientY } = e;
+    cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => {
+      const r = root.current?.getBoundingClientRect();
+      if (!r) return;
+      const x = clientX - r.left;
+      const y = clientY - r.top;
+      setActive(zoneAt(x / r.width, y / r.height));
+      setCursor({ x, y });
+    });
+  }, []);
+  useEffect(() => () => cancelAnimationFrame(frame.current), []);
 
-  const placed = size > 0 && vis ? place(tags, boxes, size, vis) : null;
+  // clicking a person opens their Instagram (the tag chases the cursor, so it is hard to hit)
+  const onClick = useCallback((e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('a')) return;
+    const t = tags.find((x) => x.side === active);
+    if (t) window.open(t.href, '_blank', 'noopener,noreferrer');
+  }, [active, tags]);
+
+  const phaseOf = (t: TagView): Phase => (revealAll || active === t.side ? 'in' : shown[t.id] ? 'out' : 'hidden');
+  useEffect(() => {
+    const on = tags.filter((t) => revealAll || active === t.side).map((t) => t.id);
+    if (on.length) setShown((s) => (on.every((id) => s[id]) ? s : { ...s, ...Object.fromEntries(on.map((id) => [id, true])) }));
+  }, [active, revealAll, tags]);
+
+  const follow = canHover && active && cursor ? { side: active, ...cursor } : null;
+  const placed = size > 0 && vis ? place(tags, boxes, size, vis, follow) : null;
 
   return (
     <div
       ref={root}
-      className="absolute inset-0 z-10"
-      onMouseEnter={canHover ? show : undefined}
-      onMouseLeave={canHover ? hide : undefined}
-      onFocus={show}
-      onBlur={canHover ? hide : undefined}
+      className={`absolute inset-0 z-10 ${canHover && active ? 'cursor-pointer' : ''}`}
+      onMouseMove={canHover ? onMove : undefined}
+      onMouseLeave={canHover ? () => { cancelAnimationFrame(frame.current); setActive(null); } : undefined}
+      onClick={canHover ? onClick : undefined}
     >
       {placed && tags.map((t, i) => (
-        <Tag key={t.id} tag={t} index={i} at={placed[i]!} box={boxes[t.id]} onMeasure={onMeasure} phase={phase} canHover={canHover} />
+        <Tag key={t.id} tag={t} index={i} at={placed[i]!} box={boxes[t.id]} onMeasure={onMeasure} phase={phaseOf(t)} canHover={canHover} following={follow?.side === t.side} onFocusTag={() => setActive(t.side)} onBlurTag={() => setActive(null)} />
       ))}
     </div>
   );
 }
 
-function Tag({ tag, index, at, box, onMeasure, phase, canHover }: {
-  tag: TagView; index: number; at: Placement; box?: Box; onMeasure: (id: string, w: number, h: number) => void; phase: Phase; canHover: boolean;
+function Tag({ tag, index, at, box, onMeasure, phase, canHover, following, onFocusTag, onBlurTag }: {
+  tag: TagView; index: number; at: Placement; box?: Box; onMeasure: (id: string, w: number, h: number) => void; phase: Phase; canHover: boolean; following: boolean;
+  onFocusTag: () => void; onBlurTag: () => void;
 }) {
   const bubble = useRef<HTMLAnchorElement>(null);
   useLayoutEffect(() => {
     const el = bubble.current;
     if (el) onMeasure(tag.id, el.offsetWidth, el.offsetHeight);
   }, [tag.handle, onMeasure, tag.id]);
+
+  const [glide, setGlide] = useState(false);
+  useEffect(() => {
+    if (!following) { setGlide(false); return; }
+    const id = requestAnimationFrame(() => setGlide(true));
+    return () => cancelAnimationFrame(id);
+  }, [following]);
 
   const { A, B } = at;
   const w = box?.w ?? 130;
@@ -170,21 +220,26 @@ function Tag({ tag, index, at, box, onMeasure, phase, canHover }: {
       {/* the tagged spot: a quiet dot (pulses on pointer devices until the tags are out) */}
       <span
         aria-hidden
-        className="pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 shadow-[0_0_0_3px_rgba(255,255,255,0.25)]"
+        className={`pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 shadow-[0_0_0_3px_rgba(255,255,255,0.25)] ${following ? 'hidden' : ''}`}
         style={{ left: A.x, top: A.y }}
       >
         {canHover && phase !== 'in' && <span className="dot-pulse absolute inset-0 rounded-full bg-white/70" style={{ animationDelay: `${index * 600}ms` }} />}
       </span>
 
-      <div className="absolute" style={{ left: B.x, top: B.y, transform: 'translate(-50%, -50%)' }}>
+      <div
+        className="absolute left-0 top-0 will-change-transform"
+        style={{ transform: `translate3d(${B.x}px, ${B.y}px, 0) translate(-50%, -50%)`, transition: glide ? 'transform 110ms ease-out' : 'none' }}
+      >
         <div className="tag-float" style={{ ['--fd' as string]: `${index * -1.7}s` }}>
-          <div className={anim} style={{ ['--d' as string]: `${index * 150}ms`, transformOrigin: `${ex}px ${ey}px` }}>
+          <div className={anim} style={{ ['--d' as string]: `${canHover ? 0 : index * 150}ms`, transformOrigin: `${ex}px ${ey}px` }}>
             <a
               ref={bubble}
               href={tag.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={tag.label}
+              onFocus={onFocusTag}
+              onBlur={onBlurTag}
               className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#0e0f0c]/85 px-3 py-1.5 text-[11px] font-bold leading-none text-white shadow-[0_2px_8px_rgba(0,0,0,0.35)] transition-colors hover:bg-black md:text-xs ${phase === 'in' ? '' : 'pointer-events-none'}`}
             >
               <Instagram className="h-3.5 w-3.5 shrink-0" />

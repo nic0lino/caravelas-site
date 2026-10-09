@@ -26,7 +26,7 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
       ? [{
           id: c.id,
           href: c.instagram,
-          handle: '@' + (new URL(c.instagram).pathname.split('/').filter(Boolean)[0] ?? c.name),
+          handle: (new URL(c.instagram).pathname.split('/').filter(Boolean)[0] ?? c.name),
           label: t.team.instagram.replace('{name}', c.name),
           side: c.photoSide ?? (i % 2 === 0 ? 'left' : 'right'),
         } as TagView]
@@ -37,7 +37,7 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
     tags.push({
       id: 'gym',
       href: config.instagram,
-      handle: '@' + (new URL(config.instagram).pathname.split('/').filter(Boolean)[0] ?? 'caravelas'),
+      handle: (new URL(config.instagram).pathname.split('/').filter(Boolean)[0] ?? 'caravelas'),
       label: t.team.instagram.replace('{name}', 'CrossFit Caravelas'),
       side: 'gym',
     });
