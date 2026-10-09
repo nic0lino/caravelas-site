@@ -22,6 +22,8 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 - Behind that rewrite Next's segment prefetches 404, so header/language `Link`s use `prefetch={false}`.
 - Hobby plan: Juanpi can't be added to the Vercel project; to work on it he needs the `cravel` team (Pro) or his own Vercel + GitHub collaborator access.
 
+- Team photo tags (`src/components/Team/PhotoTags.tsx`): Instagram tags for each coach + the gym (`config.instagram`, pointing at the rack bars). The triangle aims at the tagged spot; if a tag would be cut by the edge of the visible photo or hit another tag it swings to the other side of its spot (never off the margins). Touch: appear ~1.2s after the photo is seen; pointer: unfold with a small wobble on hover/focus. Spot coordinates are tuned to `public/assets/team.jpg` — re-tune `SPOTS` if the photo changes. Real handles in the fixture: @feu_ferreira, @_ana.lima_; gym handle (@crossfitcaravelas) still to confirm.
+
 ## Next steps
 - Compare against Figma at 1728 / 440 widths (only checked by eye at 1200, 599 and 375); Playwright smoke test; Lighthouse on the deployed URL (not run).
 - Hero: separate portrait video crop for mobile if needed; the source video is a split-screen of two clips, so check the crop on phones. Poster is a plain frame, not a pre-rendered shader frame.

@@ -49,7 +49,8 @@ export const Coach = z.object({
   id: z.string(),
   name: z.string().min(1),
   bio: Localized, // paragraphs separated by a blank line; FIRST paragraph renders bold
-  instagram: z.string().url().optional(), // profile link; shows an Instagram icon next to the name
+  instagram: z.string().url().optional(), // profile link; shown as a tag floating on the team photo
+  photoSide: z.enum(['left', 'right']).optional(), // which person in the team photo (tag placement); default by order
   order: z.number().int().default(0),
 });
 
