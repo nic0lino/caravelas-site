@@ -44,7 +44,7 @@ export function MobileMenu({
 
   return (
     <>
-      <button ref={button} type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={openLabel} onClick={() => setOpen(true)} className="p-2 text-white lg:hidden">
+      <button ref={button} type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={openLabel} onClick={() => setOpen(true)} className="-mr-2 p-2 text-white lg:hidden">
         <MenuIcon className="h-7 w-7" />
       </button>
       {open && (
