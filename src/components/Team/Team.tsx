@@ -10,12 +10,21 @@ import { PhotoTags, type TagView } from './PhotoTags';
 // Desktop = lg (1024+); below that the mobile composition (capped at 560 wide).
 const COL = 'max(24px,calc((100% - 1000px)/2))'; // left edge of the 1000px column, inside the card
 
+// Inline markup allowed in a bio (see CONTENT_CONTRACT v8): **bold** and *italic*, nothing else.
+function Inline({ text }: { text: string }) {
+  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).map((part, i) =>
+    part.startsWith('**') ? <strong key={i} className="font-bold">{part.slice(2, -2)}</strong>
+    : part.startsWith('*') ? <em key={i}>{part.slice(1, -1)}</em>
+    : part,
+  );
+}
+
 function Bio({ text }: { text: string }) {
   const [first, ...rest] = splitBio(text);
   return (
     <div className="space-y-[1.2em] text-xs leading-[normal] text-black">
-      {first && <p className="font-bold">{first}</p>}
-      {rest.map((p, i) => <p key={i}>{p}</p>)}
+      {first && <p className="font-bold"><Inline text={first} /></p>}
+      {rest.map((p, i) => <p key={i}><Inline text={p} /></p>)}
     </div>
   );
 }
