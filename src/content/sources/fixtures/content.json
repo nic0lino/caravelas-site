@@ -1,0 +1,614 @@
+{
+  "config": {
+    "heroTitle": {
+      "pt": "Box de bem-estar"
+    },
+    "ctaLabel": {
+      "pt": "Agende a aula experimental",
+      "en": "Book your free trial class",
+      "es": "Reserva tu clase de prueba",
+      "fr": "Réservez votre cours d’essai",
+      "de": "Probetraining buchen",
+      "ru": "Запишитесь на пробное занятие",
+      "uk": "Запишіться на пробне заняття"
+    },
+    "ctaBadge": {
+      "pt": "GRÁTIS",
+      "en": "FREE",
+      "es": "GRATIS",
+      "fr": "GRATUIT",
+      "de": "GRATIS",
+      "ru": "БЕСПЛАТНО",
+      "uk": "БЕЗКОШТОВНО"
+    },
+    "ctaHref": "https://example.com/regybox-aula-experimental",
+    "pricesUpdatedNote": {
+      "pt": "Preços atualizados em outubro de 2026",
+      "en": "Prices updated October 2026",
+      "es": "Precios actualizados en octubre de 2026",
+      "fr": "Prix mis à jour en octobre 2026",
+      "de": "Preise aktualisiert im Oktober 2026",
+      "ru": "Цены обновлены в октябре 2026",
+      "uk": "Ціни оновлено в жовтні 2026"
+    },
+    "pricesPromoNote": {
+      "pt": "Confira as nossas promoções de pacotes mensais.",
+      "en": "Check out our monthly package deals.",
+      "es": "Consulta nuestras promociones de paquetes mensuales.",
+      "fr": "Découvrez nos promotions sur les forfaits mensuels.",
+      "de": "Entdecken Sie unsere Angebote für Monatspakete.",
+      "ru": "Узнайте о наших акциях на месячные абонементы.",
+      "uk": "Дізнайтеся про наші акції на місячні абонементи."
+    },
+    "address": {
+      "street": "R. Arco do Chafariz das Terras 13A",
+      "postalCode": "1200-607",
+      "city": "Lisboa"
+    },
+    "mapsHref": "https://maps.google.com/?q=CrossFit+Caravelas+Lisboa",
+    "openingHours": {
+      "weekdays": {
+        "opens": "07:00",
+        "closes": "21:00"
+      },
+      "saturday": {
+        "opens": "09:00",
+        "closes": "12:00"
+      },
+      "sunday": null
+    },
+    "email": "feu.ferreira@caravelas.fit",
+    "whatsapp": "+351912849143",
+    "instagram": "https://www.instagram.com/crossfitcaravelas",
+    "facebook": "https://www.facebook.com/crossfitcaravelas",
+    "privacyHref": "https://www.caravelas.fit/teaser-politica-de-privacidade",
+    "cookiesHref": "https://www.caravelas.fit/copia-politica-de-privacidade"
+  },
+  "marquee": [
+    {
+      "id": "m1",
+      "highlight": {
+        "pt": "Participe na nossa campanha de recolha do Box;",
+        "en": "Join our Box donation drive;",
+        "es": "Participa en nuestra campaña de recogida del Box;",
+        "fr": "Participez à notre collecte du Box ;",
+        "de": "Machen Sie bei unserer Sammelaktion der Box mit;",
+        "ru": "Участвуйте в нашей акции по сбору вещей для бокса;",
+        "uk": "Долучайтеся до нашої акції зі збору речей для боксу;"
+      },
+      "text": {
+        "pt": "prazo disponível até dezembro de 2026.",
+        "en": "open until December 2026.",
+        "es": "plazo disponible hasta diciembre de 2026.",
+        "fr": "jusqu’en décembre 2026.",
+        "de": "noch bis Dezember 2026.",
+        "ru": "до декабря 2026 года.",
+        "uk": "до грудня 2026 року."
+      },
+      "order": 1
+    },
+    {
+      "id": "m2",
+      "highlight": {
+        "pt": "Novo horário de sábado"
+      },
+      "text": {
+        "pt": "Team WOD às 10:00"
+      },
+      "order": 2
+    },
+    {
+      "id": "m3",
+      "highlight": {
+        "pt": "Open Day",
+        "en": "Open Day"
+      },
+      "text": {
+        "pt": "traga um amigo",
+        "en": "bring a friend"
+      },
+      "endsOn": "2025-12-31",
+      "order": 3
+    }
+  ],
+  "features": [
+    {
+      "id": "f1",
+      "icon": "lifebuoy",
+      "title": {
+        "pt": "Foco em bem-estar",
+        "en": "Focus on well-being",
+        "es": "Enfoque en el bienestar",
+        "fr": "Axés sur le bien-être",
+        "de": "Fokus auf Wohlbefinden",
+        "ru": "Забота о самочувствии",
+        "uk": "Турбота про самопочуття"
+      },
+      "text": {
+        "pt": "Treinamos para a vida, não para o pódio. Cada treino é adaptado para que saia da box melhor do que entrou.",
+        "en": "We train for life, not for the podium. Every workout is adapted so you leave the box better than you came in.",
+        "es": "Entrenamos para la vida, no para el podio. Cada entrenamiento se adapta para que salgas del box mejor de como entraste.",
+        "fr": "Nous nous entraînons pour la vie, pas pour le podium. Chaque séance est adaptée pour que vous sortiez de la box en meilleure forme qu’en entrant.",
+        "de": "Wir trainieren fürs Leben, nicht für das Podest. Jedes Training wird angepasst, damit Sie die Box besser verlassen, als Sie sie betreten haben.",
+        "ru": "Мы тренируемся для жизни, а не для пьедестала. Каждая тренировка адаптируется так, чтобы вы уходили из бокса в лучшей форме, чем пришли.",
+        "uk": "Ми тренуємося для життя, а не для п’єдесталу. Кожне тренування адаптоване так, щоб ви йшли з боксу в кращій формі, ніж прийшли."
+      },
+      "order": 1
+    },
+    {
+      "id": "f2",
+      "icon": "anchor",
+      "title": {
+        "pt": "Equipa experiente",
+        "en": "Experienced team",
+        "es": "Equipo con experiencia",
+        "fr": "Une équipe expérimentée",
+        "de": "Erfahrenes Team",
+        "ru": "Опытная команда",
+        "uk": "Досвідчена команда"
+      },
+      "text": {
+        "pt": "Mais de 30 anos de experiência somados. Coaches com credencial CrossFit Level 2 (CF-L2), atentos à sua técnica em cada repetição.",
+        "en": "Over 30 years of combined experience. Coaches with CrossFit Level 2 (CF-L2) credentials, watching your technique on every rep.",
+        "es": "Más de 30 años de experiencia combinada. Coaches con credencial CrossFit Level 2 (CF-L2), atentos a tu técnica en cada repetición.",
+        "fr": "Plus de 30 ans d’expérience cumulée. Des coachs certifiés CrossFit Level 2 (CF-L2), attentifs à votre technique à chaque répétition.",
+        "de": "Über 30 Jahre gemeinsame Erfahrung. Coaches mit CrossFit-Level-2-Zertifikat (CF-L2), die bei jeder Wiederholung auf Ihre Technik achten.",
+        "ru": "Более 30 лет совместного опыта. Тренеры с сертификатом CrossFit Level 2 (CF-L2) следят за вашей техникой в каждом повторении.",
+        "uk": "Понад 30 років спільного досвіду. Тренери з сертифікатом CrossFit Level 2 (CF-L2) стежать за вашою технікою в кожному повторенні."
+      },
+      "order": 2
+    },
+    {
+      "id": "f3",
+      "icon": "ship",
+      "title": {
+        "pt": "Todos a bordo",
+        "en": "All aboard",
+        "es": "Todos a bordo",
+        "fr": "Tous à bord",
+        "de": "Alle an Bord",
+        "ru": "Все на борту",
+        "uk": "Усі на борту"
+      },
+      "text": {
+        "pt": "Aulas em português e inglês. Chegou a Lisboa há uma semana ou há trinta anos, aqui faz parte da tripulação desde o primeiro treino.",
+        "en": "Classes in Portuguese and English. Whether you arrived in Lisbon a week or thirty years ago, you are part of the crew from your first session.",
+        "es": "Clases en portugués e inglés. Hayas llegado a Lisboa hace una semana o hace treinta años, aquí formas parte de la tripulación desde el primer entrenamiento.",
+        "fr": "Cours en portugais et en anglais. Que vous soyez arrivé à Lisbonne il y a une semaine ou il y a trente ans, vous faites partie de l’équipage dès la première séance.",
+        "de": "Kurse auf Portugiesisch und Englisch. Ob Sie vor einer Woche oder vor dreißig Jahren in Lissabon angekommen sind – ab dem ersten Training gehören Sie zur Crew.",
+        "ru": "Занятия на португальском и английском. Приехали в Лиссабон неделю или тридцать лет назад — с первой тренировки вы часть команды.",
+        "uk": "Заняття португальською та англійською. Приїхали до Лісабона тиждень чи тридцять років тому — з першого тренування ви частина команди."
+      },
+      "order": 3
+    },
+    {
+      "id": "f4",
+      "icon": "ship",
+      "title": {
+        "pt": "Prontos e equipados",
+        "en": "Ready and equipped",
+        "es": "Listos y equipados",
+        "fr": "Prêts et équipés",
+        "de": "Bereit und ausgestattet",
+        "ru": "Готовы и экипированы",
+        "uk": "Готові та екіпіровані"
+      },
+      "text": {
+        "pt": "Tudo o que precisa para treino CrossFit® e treino híbrido: Rig, barras olímpicas, remos, bikes.... É só aparecer.",
+        "en": "Everything you need for CrossFit® and hybrid training: rig, Olympic barbells, rowers, bikes… Just show up.",
+        "es": "Todo lo que necesitas para entrenar CrossFit® y entrenamiento híbrido: rig, barras olímpicas, remos, bikes… Solo tienes que venir.",
+        "fr": "Tout ce qu’il faut pour le CrossFit® et l’entraînement hybride : rig, barres olympiques, rameurs, vélos… Il ne reste qu’à venir.",
+        "de": "Alles, was Sie für CrossFit® und Hybrid-Training brauchen: Rig, Langhanteln, Rudergeräte, Bikes … Sie müssen nur kommen.",
+        "ru": "Всё необходимое для кроссфита® и гибридных тренировок: риг, олимпийские штанги, гребные тренажёры, байки… Вам остаётся только прийти.",
+        "uk": "Усе необхідне для кросфіту® та гібридних тренувань: риг, олімпійські штанги, гребні тренажери, байки… Вам лишається тільки прийти."
+      },
+      "order": 4
+    }
+  ],
+  "schedule": [
+    {
+      "id": "s1",
+      "day": "mon",
+      "time": "07:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s2",
+      "day": "tue",
+      "time": "07:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s3",
+      "day": "wed",
+      "time": "07:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s4",
+      "day": "thu",
+      "time": "07:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s5",
+      "day": "fri",
+      "time": "07:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s6",
+      "day": "mon",
+      "time": "08:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s7",
+      "day": "tue",
+      "time": "08:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s8",
+      "day": "wed",
+      "time": "08:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s9",
+      "day": "thu",
+      "time": "08:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s10",
+      "day": "fri",
+      "time": "08:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s11",
+      "day": "mon",
+      "time": "09:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s12",
+      "day": "tue",
+      "time": "09:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s13",
+      "day": "wed",
+      "time": "09:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s14",
+      "day": "thu",
+      "time": "09:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s15",
+      "day": "fri",
+      "time": "09:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s16",
+      "day": "mon",
+      "time": "10:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s17",
+      "day": "tue",
+      "time": "10:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s18",
+      "day": "wed",
+      "time": "10:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s19",
+      "day": "thu",
+      "time": "10:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s20",
+      "day": "fri",
+      "time": "10:00",
+      "kind": "open_box"
+    },
+    {
+      "id": "s21",
+      "day": "mon",
+      "time": "11:15",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s22",
+      "day": "tue",
+      "time": "11:15",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s23",
+      "day": "wed",
+      "time": "11:15",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s24",
+      "day": "thu",
+      "time": "11:15",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s25",
+      "day": "fri",
+      "time": "11:15",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s26",
+      "day": "mon",
+      "time": "12:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s27",
+      "day": "tue",
+      "time": "12:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s28",
+      "day": "wed",
+      "time": "12:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s29",
+      "day": "thu",
+      "time": "12:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s30",
+      "day": "fri",
+      "time": "12:30",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s31",
+      "day": "mon",
+      "time": "17:45",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s32",
+      "day": "tue",
+      "time": "17:45",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s33",
+      "day": "wed",
+      "time": "17:45",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s34",
+      "day": "thu",
+      "time": "17:45",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s35",
+      "day": "fri",
+      "time": "17:45",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s36",
+      "day": "mon",
+      "time": "19:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s37",
+      "day": "tue",
+      "time": "19:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s38",
+      "day": "wed",
+      "time": "19:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s39",
+      "day": "thu",
+      "time": "19:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s40",
+      "day": "fri",
+      "time": "19:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s41",
+      "day": "mon",
+      "time": "20:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s42",
+      "day": "tue",
+      "time": "20:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s43",
+      "day": "wed",
+      "time": "20:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s44",
+      "day": "thu",
+      "time": "20:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s45",
+      "day": "fri",
+      "time": "20:00",
+      "kind": "crossfit",
+      "coach": "Ana Lima"
+    },
+    {
+      "id": "s46",
+      "day": "sat",
+      "time": "09:00",
+      "kind": "team_wod",
+      "coach": "Dinâmico"
+    },
+    {
+      "id": "s47",
+      "day": "sat",
+      "time": "11:15",
+      "kind": "team_wod",
+      "coach": "Dinâmico"
+    }
+  ],
+  "prices": [
+    {
+      "id": "p1",
+      "label": {
+        "pt": "Drop-In",
+        "en": "Drop-In"
+      },
+      "priceEUR": 20,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "p2",
+      "label": {
+        "pt": "2 Aulas por semana",
+        "en": "2 classes per week",
+        "es": "2 clases por semana",
+        "fr": "2 cours par semaine",
+        "de": "2 Kurse pro Woche",
+        "ru": "2 занятия в неделю",
+        "uk": "2 заняття на тиждень"
+      },
+      "priceEUR": 60,
+      "order": 2
+    },
+    {
+      "id": "p3",
+      "label": {
+        "pt": "3 Aulas por semana",
+        "en": "3 classes per week",
+        "es": "3 clases por semana",
+        "fr": "3 cours par semaine",
+        "de": "3 Kurse pro Woche",
+        "ru": "3 занятия в неделю",
+        "uk": "3 заняття на тиждень"
+      },
+      "priceEUR": 70,
+      "order": 3
+    },
+    {
+      "id": "p4",
+      "label": {
+        "pt": "Livre",
+        "en": "Unlimited",
+        "es": "Libre",
+        "fr": "Illimité",
+        "de": "Unbegrenzt",
+        "ru": "Безлимит",
+        "uk": "Безліміт"
+      },
+      "priceEUR": 80,
+      "order": 4
+    }
+  ],
+  "coaches": [
+    {
+      "id": "c1",
+      "name": "Feu Ferreira",
+      "bio": {
+        "pt": "Formado na Universidade de Brasília e tem uma vasta experiência na área da Educação Física, seja com desporto ou ginásios.\n\nA jornada dele começou em 1999 e foi marcada por inúmeras conquistas. Já passou pela Cia Athletica, BH Rugby Clube, Diamante CrossFit e UBH CrossFit.\n\nE não para por aí, o nosso capitão também já foi atleta de futebol, judô e rugby, no qual sagrou-se 6 vezes campeão regional.\n\nNo CrossFit é um treinador Level 2.\n\nPara o Feu, bem-estar é ter saúde física e mental para realizar as tarefas diárias e as atividades favoritas, tornando a vida dinâmica e feliz."
+      },
+      "order": 1,
+      "instagram": "https://www.instagram.com/crossfitcaravelas"
+    },
+    {
+      "id": "c2",
+      "name": "Ana Lima",
+      "bio": {
+        "pt": "Formada pelo Centro Universitário de Belo Horizonte, UniBH.\n\nEm 2012 começou a praticar o CrossFit e nunca mais parou. E não demorou muito para ela se capacitar e virar treinadora.\n\nAtualmente, ela é CrossFit Trainer Level 2 e já atuou em diversos campeonatos no Brasil como Head Judge. Além disso, tem formação em Low Pressure Fitness (Level 3).\n\nA Ana é tão apaixonada pelo desporto que já se tornou num estilo de vida. Para ela, bem-estar significa \"viver a vida e suas nuances com plenitude e alegria em tudo o que se propõe a fazer\"."
+      },
+      "order": 2,
+      "instagram": "https://www.instagram.com/crossfitcaravelas"
+    }
+  ],
+  "meta": {
+    "source": "fixture",
+    "fetchedAt": "2026-01-01T00:00:00.000Z",
+    "warnings": [
+      "fixture: marquesina \"m2\" sem tradução EN (intencional — testa o fallback para PT)",
+      "fixture: marquesina \"m3\" terminou em 2025-12-31 (intencional — testa o filtro por datas)",
+      "fixture: biografias dos capitães só em PT/EN (as outras línguas usam o fallback en → pt)",
+      "fixture: instagram dos capitães é um placeholder (conta do ginásio) — substituir pelos perfis reais",
+      "fixture: email (feu.ferreira@) e WhatsApp (+351 912 849 143) vêm das páginas de política do site antigo — confirmar com o ginásio qual é o contacto principal e se o número tem WhatsApp"
+    ]
+  }
+}

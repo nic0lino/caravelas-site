@@ -1,0 +1,18 @@
+:root {
+  --yellow: #fde00a;
+  --lime-400: #a4cf3d;
+  --lime-500: #99c82a;
+  --olive-600: #66793a;
+  --olive-700: #536c16;
+  --olive-800: #4b6215;
+  --moss-700: #496700;
+  --moss-900: #304400;
+  --moss-950: #293805;
+  --table-bg: #232e07;
+  --band-bg: #121901;
+  --band-line: #74730a;
+  --paper: #ededed;
+  --footer: #242424;
+  --ink: #0e0f0c;
+  --font-thin: var(--font-lato), var(--font-cyr), system-ui, sans-serif;
+}

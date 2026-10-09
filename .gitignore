@@ -1,0 +1,12 @@
+node_modules
+.next
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+# raw source media (encode into public/assets before use)
+source/
+videocaravelas.mp4
+
+# duplicate of docs/SPEC.md and local tooling
+caravelas-site-spec.md
+.claude/
