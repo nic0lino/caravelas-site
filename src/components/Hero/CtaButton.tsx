@@ -9,8 +9,8 @@ const SIZE = 'w-[285px] max-w-full lg:w-[402px]';
 const ROUND = 'rounded-[10px] lg:rounded-2xl';
 const FACE =
   'flex min-h-[43px] w-full flex-wrap items-center justify-center gap-x-2.5 border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 transition-[color,filter,translate] duration-200 hover:-translate-y-px hover:text-white hover:brightness-110 active:translate-y-px lg:min-h-[70px] lg:px-6 lg:text-lg';
-// 4px 4px, blur 2.85px, #304400 — multiplied into whatever is behind
-const SHADOW = 'pointer-events-none absolute inset-0 translate-x-1 translate-y-1 bg-[#304400] blur-[2.85px] mix-blend-multiply transition-[translate] duration-200';
+// 4px 4px, blur 2.85px, #304400 — multiplied into whatever is behind, at 40% so it stays soft over light sections
+const SHADOW = 'pointer-events-none absolute inset-0 translate-x-1 translate-y-1 bg-[#304400] opacity-40 blur-[2.85px] mix-blend-multiply transition-[translate] duration-200';
 
 /**
  * The hero's CTA, plus a copy fixed to the screen that fades in once the original has scrolled out above the viewport

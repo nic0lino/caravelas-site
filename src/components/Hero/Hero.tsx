@@ -20,12 +20,13 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
       <HeroBackground />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[#4f6d0c]/75 mix-blend-multiply" />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(14,22,2,0.85),rgba(14,22,2,0.1)_60%),linear-gradient(to_right,rgba(0,0,0,0.6),rgba(0,0,0,0.25)_70%)]" />
-      <div className="absolute right-10 top-5 z-10 lg:hidden"><LangSwitch lang={lang} label={t.langLabel} className="h-[35px] w-[101px]" /></div>
+      <div className="absolute right-10 top-5 z-10 md:right-6 lg:hidden"><LangSwitch lang={lang} label={t.langLabel} className="h-[35px] w-[101px]" /></div>
 
       <div className="container-col flex flex-col px-10 pb-[68px] pt-[117px] md:min-h-[667px] md:px-6 md:pb-[48px] md:pt-24">
         {/* md+: the text body is centred in the free space; credentials and CTA share the bottom row */}
         <div className="flex flex-col items-start gap-5 md:flex-1 md:justify-center md:gap-10 md:py-10">
-          <h1 id="hero-title" className="max-w-[563px] text-display font-black uppercase text-yellow">
+          <h1 id="hero-title" className="-ml-[0.06em] max-w-[563px] text-display font-black uppercase text-yellow">
+            {/* -ml: cancels the capital B's side bearing (0.06em) so the glyph edge sits on the gutter, like the logo and icon */}
             {/* brand name: intentionally never translated, always the PT text; words never split at the hyphen */}
             {config.heroTitle.pt.split(' ').map((w, i) => (
               <span key={i}>{i > 0 && ' '}<span className="inline-block whitespace-nowrap">{w}</span></span>
