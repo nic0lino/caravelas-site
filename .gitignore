@@ -10,3 +10,5 @@ videocaravelas.mp4
 # duplicate of docs/SPEC.md and local tooling
 caravelas-site-spec.md
 .claude/
+.vercel
+.env*
