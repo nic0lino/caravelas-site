@@ -31,8 +31,11 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
                 <span key={i}>{i > 0 && ' '}<span className="inline-block whitespace-nowrap">{w}</span></span>
               ))}
             </h1>
-            <FeatureRotator features={views} label={t.features.label} />
-            <Badges affiliateHref={config.affiliateHref} />
+            {/* the badges never get wider than the features block: the row is sized by it, not by its own content */}
+            <div className="flex w-fit max-w-full flex-col gap-5 md:gap-10">
+              <FeatureRotator features={views} label={t.features.label} />
+              <Badges affiliateHref={config.affiliateHref} />
+            </div>
           </div>
           <CtaButton href={config.ctaHref} label={localize(config.ctaLabel, lang)} badge={localize(config.ctaBadge, lang)} />
         </div>

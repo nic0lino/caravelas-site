@@ -39,7 +39,7 @@ export function Header({ lang, t, config }: { lang: Lang; t: UiStrings; config: 
           ))}
         </nav>
         <div className="hidden shrink-0 items-center justify-end gap-6 lg:-mr-[9px] lg:flex">
-          <LangSwitch lang={lang} label={t.langLabel} className="h-[67px] w-[101px]" />
+          <LangSwitch lang={lang} label={t.langLabel} className="h-[43px] w-[101px]" />
           {socials}
         </div>
         <MobileMenu
