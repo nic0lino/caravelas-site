@@ -28,7 +28,7 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 
 - Type scale (2026-10-09): only 12/14/16/20/32 + fluid `display` (+ `2xs` 10px for the cookie bar), defined in `globals.css`. Table: class names 14px, coach line 12px, times 20px, rows 48. Marquee 20px (14 mobile). Hero stacks below `lg`. Cookie notice is a slim bottom bar. Mobile team: the cut-out rises 40px over the section above (schedule section's bottom padding is 12px). Schedule table + pricing band are one card (table rounds only the top).
 
-- Floating CTA (`src/components/Hero/CtaButton.tsx`): a copy of the trial-class button fixed to the screen appears (fade + 14px slide, 260ms) once the hero's own has scrolled out above the viewport, and leaves when it is back. Same X as the original (same column/gutters/alignment per breakpoint), Y fixed 24px from the bottom (above the cookie bar when it is open). Rendered in `<body>` via a portal. Button hover turns the label white.
+- Floating CTA (`src/components/Hero/CtaButton.tsx`): a copy of the trial-class button fixed to the screen appears (fade + 14px slide, 260ms) once the hero's own has scrolled out above the viewport, and leaves when it is back. Same X as the original (same column/gutters/alignment per breakpoint), Y fixed 72px from the bottom (above the cookie bar when it is open). Rendered in `<body>` via a portal. The button's hard shadow is its own layer with `mix-blend-multiply` (a drop-shadow can't blend; the floating copy needs a second fixed layer because `fixed` is its own stacking context). Button hover turns the label white.
 
 ## Next steps
 - Compare against Figma at 1728 / 440 widths (only checked by eye at 1200, 599 and 375); Playwright smoke test; Lighthouse on the deployed URL (not run).

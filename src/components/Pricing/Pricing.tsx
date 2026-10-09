@@ -17,17 +17,18 @@ export function Pricing({ lang, plans, config }: { lang: Lang; plans: PricePlan[
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={asset('/assets/squiggle-price.svg')} alt="" width={551} height={40} className="-ml-[17px] h-10 w-[551px] max-w-none" />
       </div>
-      <ul className="relative flex items-center justify-center lg:justify-start">
+      <ul className="relative flex items-stretch justify-center lg:justify-start">
         {sorted.map((p, i) => {
           const prev = sorted[i - 1];
           const sep = i > 1 && !p.featured && prev && !prev.featured; // separators between plain plans only
           return (
-            <li key={p.id} className={`flex min-w-0 items-center ${i > 0 ? 'ml-2 md:ml-6 lg:ml-10' : ''}`}>
-              {sep && <span aria-hidden className="mr-2 h-[59px] w-px bg-[#95be35] md:mr-6 md:h-[43px] lg:mr-10" />}
+            <li key={p.id} className={`flex min-w-0 items-stretch ${i > 0 ? 'ml-2 md:ml-6 lg:ml-10' : ''}`}>
+              {sep && <span aria-hidden className="mr-2 h-[59px] w-px self-center bg-[#95be35] md:mr-6 md:h-[43px] lg:mr-10" />}
               {/* every plan has the same footprint; the featured one just gets the outline (same colour as the separators) */}
-              <div className={`flex w-[70px] shrink-0 flex-col items-center rounded-[7px] border py-3 md:w-[117px] ${p.featured ? 'border-[#95be35]' : 'border-transparent'}`}>
-                <div className="flex flex-col items-center gap-3.5 px-0.5 text-center text-white md:px-1">
-                  <span className="flex min-h-[3.75em] items-end justify-center text-xs font-light leading-tight md:min-h-0 md:leading-none">{localize(p.label, lang)}</span>
+              <div className={`flex w-[70px] shrink-0 flex-col rounded-[7px] border py-3 md:w-[117px] ${p.featured ? 'border-[#95be35]' : 'border-transparent'}`}>
+                {/* cells stretch to the same height; the label sits centred in the space above the price, the price at the bottom */}
+                <div className="flex flex-1 flex-col items-center gap-3.5 px-0.5 text-center text-white md:px-1">
+                  <span className="flex min-h-[2.5em] flex-1 items-center justify-center text-xs font-light leading-tight md:min-h-0 md:leading-none">{localize(p.label, lang)}</span>
                   <span className="text-lg font-bold leading-none md:text-xl">{formatPrice(p.priceEUR)}</span>
                 </div>
               </div>

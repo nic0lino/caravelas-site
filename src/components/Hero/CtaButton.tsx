@@ -3,14 +3,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-// The look of the trial-class button (Figma 16:942 / 21:2593). Hover turns the label white.
-const LOOK =
-  'flex min-h-[43px] w-[285px] max-w-full shrink-0 flex-wrap items-center justify-center gap-x-2.5 rounded-[10px] border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 drop-shadow-[4px_4px_2.85px_#304400] transition-[color,filter,translate] duration-200 hover:-translate-y-px hover:text-white hover:brightness-110 active:translate-y-px md:min-h-[70px] md:w-[402px] md:rounded-2xl md:px-6 md:text-lg';
+// The trial-class button (Figma 16:942 / 21:2593). Its hard shadow is its own layer so it can use `multiply`
+// (a CSS drop-shadow can't pick a blend mode, and normal blending looks dirty over light backgrounds).
+const SIZE = 'w-[285px] max-w-full md:w-[402px]';
+const ROUND = 'rounded-[10px] md:rounded-2xl';
+const FACE =
+  'flex min-h-[43px] w-full flex-wrap items-center justify-center gap-x-2.5 border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 transition-[color,filter,translate] duration-200 hover:-translate-y-px hover:text-white hover:brightness-110 active:translate-y-px md:min-h-[70px] md:px-6 md:text-lg';
+// 4px 4px, blur 2.85px, #304400 — multiplied into whatever is behind
+const SHADOW = 'pointer-events-none absolute inset-0 translate-x-1 translate-y-1 bg-[#304400] blur-[2.85px] mix-blend-multiply transition-[translate] duration-200';
 
 /**
  * The hero's CTA, plus a copy fixed to the screen that fades in once the original has scrolled out above the viewport
- * and fades out again when the original comes back. The copy sits at the same X as the original (same column, same
- * alignment per breakpoint); only Y is fixed to the screen. It is rendered in <body> so no section can clip or cover it.
+ * and fades out again when it is back. The copy sits at the same X as the original (same column, same alignment per
+ * breakpoint); only Y is fixed. It lives in <body> (portal) so no section can clip or cover it, and its shadow is a
+ * second fixed layer: a `fixed` element is its own stacking context, so a blend mode inside it couldn't reach the page.
  */
 export function CtaButton({ href, label, badge }: { href: string; label: string; badge: string }) {
   const original = useRef<HTMLAnchorElement>(null);
@@ -33,35 +39,47 @@ export function CtaButton({ href, label, badge }: { href: string; label: string;
       <span className="font-black">{badge}</span>
     </>
   );
+  // same column and gutters as the hero; same alignment as the original at each breakpoint
+  const column = 'container-col flex justify-center px-10 md:justify-start md:px-6 lg:justify-end';
 
   return (
     <>
-      <a
-        ref={original}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`${LOOK} mx-auto mt-[87px] md:mx-0 md:mt-10 lg:mt-0`}
-      >
-        {content}
-      </a>
+      <div className={`group relative mx-auto mt-[87px] md:mx-0 md:mt-10 lg:mt-0 ${SIZE}`}>
+        <span aria-hidden className={`${SHADOW} ${ROUND} group-hover:translate-x-[3px] group-hover:translate-y-[3px]`} />
+        <a ref={original} href={href} target="_blank" rel="noopener noreferrer" className={`relative ${FACE} ${ROUND}`}>
+          {content}
+        </a>
+      </div>
       {mounted &&
         createPortal(
-          <div className="sticky-cta pointer-events-none fixed inset-x-0 z-40" data-show={show}>
-            {/* same column and gutters as the hero; same alignment as the original at each breakpoint */}
-            <div className="container-col flex justify-center px-10 md:justify-start md:px-6 lg:justify-end">
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                tabIndex={show ? 0 : -1}
-                aria-hidden={!show}
-                className={`${LOOK} pointer-events-auto`}
-              >
-                {content}
-              </a>
+          <>
+            {/* shadow layer (multiply against the page) */}
+            <div aria-hidden className="sticky-layer sticky-cta-shadow pointer-events-none fixed inset-x-0 z-[39] mix-blend-multiply" data-show={show}>
+              <div className={column}>
+                <div className={`relative ${SIZE}`}>
+                  <span className={`${SHADOW} ${ROUND}`} />
+                  {/* invisible twin: gives the shadow the exact size of the button, even if its text wraps */}
+                  <span className={`invisible ${FACE} ${ROUND}`}>{content}</span>
+                </div>
+              </div>
             </div>
-          </div>,
+            <div className="sticky-layer sticky-cta pointer-events-none fixed inset-x-0 z-40" data-show={show}>
+              <div className={column}>
+                <div className={`pointer-events-auto ${SIZE}`}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={show ? 0 : -1}
+                    aria-hidden={!show}
+                    className={`${FACE} ${ROUND}`}
+                  >
+                    {content}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </>,
           document.body,
         )}
     </>
