@@ -1,6 +1,7 @@
 import type { OpeningHours, SiteConfig } from '@/content/schema';
 import { LANG_META, type UiStrings } from '@/i18n';
 import type { Lang } from '@/content/langs';
+import Link from 'next/link';
 import { asset } from '@/lib/asset';
 import { Mail, WhatsApp } from '../icons';
 import { CookieSettingsButton } from '../Consent/ConsentProvider';
@@ -8,8 +9,10 @@ import { MapEmbed } from './MapEmbed';
 
 const range = (h: { opens: string; closes: string } | null, closed: string) => (h ? `${h.opens}–${h.closes}` : closed);
 
-function PolicyLink({ href, label }: { href?: string; label: string }) {
-  return href ? <a href={href} target="_blank" rel="noopener noreferrer" className="underline">{label}</a> : <>{label}</>;
+function PolicyLink({ href, label }: { href: string; label: string }) {
+  return href.startsWith('/')
+    ? <Link href={href} prefetch={false} className="underline">{label}</Link>
+    : <a href={href} target="_blank" rel="noopener noreferrer" className="underline">{label}</a>;
 }
 
 // Figma 8:224 (desktop) / 21:6050 (mobile): bg #242424, pt 40 / pb 80, column 600 (383 on mobile):
@@ -65,22 +68,25 @@ export function Footer({ t, config, lang }: { t: UiStrings; config: SiteConfig; 
               openLabel={t.cookies.mapOpen}
             />
           </div>
+          {/* official CrossFit badges: they go to CrossFit's own pages */}
           <div className="flex items-center justify-center gap-10 pb-5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset('/assets/crossfit-journal.png')} alt="CrossFit Journal" width={300} height={150} className="h-[37px] w-[74px]" />
-            <span role="img" aria-label="CrossFit Affiliates" className="relative block h-[35.4px] w-[90px]">
+            <a href="https://journal.crossfit.com" target="_blank" rel="noopener noreferrer" aria-label="The CrossFit Journal">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={asset('/assets/crossfit-journal.png')} alt="CrossFit Journal" width={300} height={150} className="h-[37px] w-[74px]" />
+            </a>
+            <a href={config.affiliateHref ?? 'https://www.crossfit.com/affiliate'} target="_blank" rel="noopener noreferrer" aria-label="CrossFit Affiliates" className="relative block h-[35.4px] w-[90px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img aria-hidden src={asset('/assets/affiliates-cf.svg')} alt="" width={90} height={21} className="absolute left-0 top-0 h-[21px] w-[90px]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img aria-hidden src={asset('/assets/affiliates-box.svg')} alt="" width={88} height={12} className="absolute left-0 top-[23.7px] h-[11.7px] w-[88px]" />
-            </span>
+            </a>
           </div>
         </div>
         <div className="flex items-center justify-between gap-4 text-xs leading-[normal]">
           <p>
             © {new Date().getFullYear()} CrossFit Caravelas.{' '}
-            <PolicyLink href={config.privacyHref} label={t.contact.privacy} />.{' '}
-            <PolicyLink href={config.cookiesHref} label={t.contact.cookies} />.{' '}
+            <PolicyLink href={config.privacyHref ?? '/politica-de-privacidade'} label={t.contact.privacy} />.{' '}
+            <PolicyLink href={config.cookiesHref ?? '/politica-de-cookies'} label={t.contact.cookies} />.{' '}
             <CookieSettingsButton label={t.cookies.manage} className="underline" />
           </p>
           <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener noreferrer" aria-label={t.contact.complaints} className="shrink-0">

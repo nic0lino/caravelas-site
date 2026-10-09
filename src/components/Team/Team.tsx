@@ -49,7 +49,7 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
     <section id="equipa" aria-labelledby="equipa-title" className="relative z-10 overflow-x-clip bg-[#e8e6e6] lg:bg-[#ededed]">
       <div className="relative mx-auto max-w-[560px] lg:h-[586px] lg:max-w-none">
         {/* visual: the window on mobile, the whole card behind the text on desktop */}
-        <div className="relative aspect-[440/254.6] w-full bg-[#e8e6e6] lg:absolute lg:inset-0 lg:aspect-auto lg:bg-[#ededed]">
+        <div className="relative aspect-[440/254.6] w-full bg-[#e8e6e6] [clip-path:inset(-60px_0_0_0_round_0_0_16px_16px)] lg:absolute lg:inset-0 lg:aspect-auto lg:bg-[#ededed] lg:[clip-path:none]">
           {/* gym photo, washed out into the card colour (clipped to the window) */}
           <div aria-hidden className="absolute inset-0 overflow-clip">
           <div

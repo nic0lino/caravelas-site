@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import Link from 'next/link';
 import type { UiStrings } from '@/i18n';
 
 type Status = 'loading' | 'unset' | 'accepted' | 'declined';
@@ -19,7 +20,7 @@ export const useConsent = () => useContext(ConsentContext);
  * The only third-party cookies on the site come from the Google Maps embed, so consent gates that and nothing else.
  * The choice is stored in localStorage (try/catch: it can be unavailable) and can be changed from the footer.
  */
-export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; cookiesHref?: string; children: ReactNode }) {
+export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; cookiesHref: string; children: ReactNode }) {
   const [status, setStatus] = useState<Status>('loading');
   const [open, setOpen] = useState(false);
 
@@ -50,7 +51,9 @@ export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; co
           <div className="mx-auto flex max-w-[1248px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-1.5 md:px-6">
             <p className="min-w-0 flex-1 basis-[24rem] text-2xs">
               {t.cookies.text}{' '}
-              {cookiesHref && <a href={cookiesHref} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{t.contact.cookies}</a>}
+              {cookiesHref.startsWith('/')
+                ? <Link href={cookiesHref} prefetch={false} className="underline underline-offset-2">{t.contact.cookies}</Link>
+                : <a href={cookiesHref} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{t.contact.cookies}</a>}
             </p>
             <div className="flex shrink-0 items-center gap-2">
               <button type="button" onClick={value.decline} className="rounded border border-white/60 px-2.5 py-0.5 text-2xs font-bold text-white hover:bg-white/10">{t.cookies.decline}</button>

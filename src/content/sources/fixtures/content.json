@@ -60,12 +60,11 @@
     "whatsapp": "+351912849143",
     "instagram": "https://www.instagram.com/crossfitcaravelas",
     "facebook": "https://www.facebook.com/crossfitcaravelas",
-    "privacyHref": "https://www.caravelas.fit/teaser-politica-de-privacidade",
-    "cookiesHref": "https://www.caravelas.fit/copia-politica-de-privacidade",
     "emails": [
       "feu.ferreira@caravelas.fit",
       "ana.lima@caravelas.fit"
-    ]
+    ],
+    "affiliateHref": "https://crossfit.com/gym/23481/crossfit-caravelas"
   },
   "marquee": [
     {

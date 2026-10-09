@@ -79,8 +79,9 @@ export const SiteConfig = z.object({
   pricesPromoHref: z.string().url().optional(),
   address: z.object({ street: z.string(), postalCode: z.string(), city: z.string() }),
   mapsHref: z.string().url(),
-  privacyHref: z.string().url().optional(), // Privacy Policy page
-  cookiesHref: z.string().url().optional(), // Cookie Policy page
+  privacyHref: z.string().optional(), // override of the Privacy Policy page (default: /politica-de-privacidade)
+  cookiesHref: z.string().optional(), // override of the Cookie Policy page (default: /politica-de-cookies)
+  affiliateHref: z.string().url().optional(), // the gym's page on crossfit.com (the CrossFit Affiliates badge)
   openingHours: OpeningHours,
   emails: z.array(z.string().email()).optional(), // the Email button writes to all of them
   whatsapp: z.string().regex(/^\+\d{8,15}$/).optional(), // E.164

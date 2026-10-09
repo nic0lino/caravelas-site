@@ -21,7 +21,7 @@ export async function HomePage({ lang }: { lang: Lang }) {
   }));
 
   return (
-    <ConsentProvider t={t} cookiesHref={content.config.cookiesHref}>
+    <ConsentProvider t={t} cookiesHref={content.config.cookiesHref ?? '/politica-de-cookies'}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(content.config, lang)).replace(/</g, '\\u003c') }} />
       <a href="#horarios" className="sr-only-text focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-yellow focus:p-2 focus:text-black">{t.skip}</a>
       <Header lang={lang} t={t} config={content.config} />
