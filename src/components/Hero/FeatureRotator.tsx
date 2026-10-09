@@ -76,7 +76,7 @@ export function FeatureRotator({ features, label }: { features: FeatureView[]; l
           <div
             key={f.id}
             aria-hidden={!active}
-            className={`col-start-1 row-start-1 flex items-stretch gap-[9px] self-end md:gap-3 transition-[opacity,transform] ease-out motion-reduce:transition-none ${
+            className={`col-start-1 row-start-1 flex items-stretch gap-[9px] self-start md:gap-3 transition-[opacity,transform] ease-out motion-reduce:transition-none ${
               active ? 'translate-y-0 opacity-100 delay-150 duration-300' : 'pointer-events-none translate-y-2 opacity-0 duration-150'
             }`}
           >

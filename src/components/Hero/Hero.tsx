@@ -33,7 +33,7 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
 
       <div className="container-col flex flex-col px-10 pb-[68px] pt-[117px] md:min-h-[667px] md:px-6 md:pb-[48px] md:pt-24">
         {/* md+: the text body is centred in the free space; credentials and CTA share the bottom row */}
-        <div className="flex flex-col items-start gap-5 md:flex-1 md:justify-center md:gap-10 md:py-10">
+        <div className="flex flex-col items-start gap-5 md:flex-1 md:justify-center md:py-10">
           <h1 id="hero-title" className="-ml-[0.06em] max-w-[563px] text-display font-black uppercase text-yellow">
             {/* -ml: cancels the capital B's side bearing (0.06em) so the glyph edge sits on the gutter, like the logo and icon */}
             {/* brand name: intentionally never translated, always the PT text; words never split at the hyphen */}
