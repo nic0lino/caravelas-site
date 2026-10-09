@@ -34,8 +34,8 @@ export interface ScheduleView {
 // Colour = importance. CrossFit (and Team WOD, its variant) is the main offer, so it gets the stronger #304400;
 // Open Box is the secondary offer and recedes (#293805 @79%). Owner decision: swapped vs the Figma file.
 export const kindClass: Record<ClassKind, string> = {
-  crossfit: 'bg-[#304400] data-[hl=true]:bg-[#3e5600]',
-  team_wod: 'bg-[#304400] data-[hl=true]:bg-[#3e5600]',
-  open_box: 'bg-[rgba(41,56,5,0.79)] data-[hl=true]:bg-[rgba(58,79,8,0.9)]',
-  other: 'bg-[rgba(41,56,5,0.79)] data-[hl=true]:bg-[rgba(58,79,8,0.9)]',
+  crossfit: 'bg-[#304400]',
+  team_wod: 'bg-[#304400]',
+  open_box: 'bg-[rgba(41,56,5,0.79)]',
+  other: 'bg-[rgba(41,56,5,0.79)]',
 };

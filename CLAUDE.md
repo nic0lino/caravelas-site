@@ -20,6 +20,7 @@ Spec: `docs/SPEC.md` (wins over Figma; deviations are in §12). Contract: `docs/
 `pnpm dev` · `pnpm test` · `pnpm typecheck` · `pnpm build` (use `BASE_PATH=/testsite/caravelas` to test the subpath build).
 
 ## Design rules (owner decisions)
-- **Every line on the site is 1px** (borders, rules, separators, outlines) — no 0.5/0.62/0.65px variants even where Figma has them. Hierarchy comes from colour, not weight.
+- **Lines are 1px everywhere, except the schedule table, whose rules and dividers are 0.5px hairlines** (the pricing band right under it stays 1px). No other weights (0.62/0.65...) even where Figma has them. Hierarchy comes from colour: row rules white, column dividers lime `#95be35`.
+- **Schedule table interaction is subtle:** today's column header gets a soft lime tint (no strong yellow); hovering a class lightens its cell (200ms) and its day label goes Regular → Black.
 - Card groups have consistent rounded corners (16px) top and bottom, on mobile too.
 - Follow Figma values for sizes/colours; deviations only when the owner asks.
