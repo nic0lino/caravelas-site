@@ -2,6 +2,7 @@ import type { Feature, SiteConfig } from '@/content/schema';
 import { localize, type Lang } from '@/content/select';
 import type { UiStrings } from '@/i18n';
 import { LangSwitch } from '../Header/LangSwitch';
+import { Badges } from './Badges';
 import { CtaButton } from './CtaButton';
 import { FeatureRotator } from './FeatureRotator';
 import { HeroBackground } from './HeroBackground';
@@ -31,6 +32,7 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
               ))}
             </h1>
             <FeatureRotator features={views} label={t.features.label} />
+            <Badges affiliateHref={config.affiliateHref} />
           </div>
           <CtaButton href={config.ctaHref} label={localize(config.ctaLabel, lang)} badge={localize(config.ctaBadge, lang)} />
         </div>

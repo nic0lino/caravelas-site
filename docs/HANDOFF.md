@@ -37,6 +37,11 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 - Privacy / Cookies pages (footer links are `#`) and Livro de Reclamações logo (text link for now).
 - Deploy: Vercel project + rewrite in nicolino.zip (Nico, separate PR).
 
+## Hero credential badges
+- `src/components/Hero/Badges.tsx`: CrossFit Affiliates (→ `config.affiliateHref`), Google rating (→ maps.app.goo.gl link), Wodily Top 1 Lisboa (→ wodily.com/city/pt/lisbon). SVGs in `public/assets/badge-*.svg` (Wodily's embedded PNG downsampled to 700px).
+- The Google rating (4.9, "more than 100 reviews") is baked into the SVG artwork: re-export it when the number changes.
+- The Wodily and Google URLs are constants in `Badges.tsx`, not in the contract (see Requests).
+
 ## Open questions
 - Real RegyBox link, WhatsApp, email, social URLs, opening hours; 3×/sem price (desktop €70 vs mobile).
 - Museo Sans licence (D4). The 4th feature reuses the ship icon.
@@ -44,3 +49,4 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 
 ## Requests
 - Juanpi: implement `src/content/sources/sheets.ts` (+ parsers, harden `/api/revalidate`); set `CONTENT_SOURCE=sheets`.
+- Contract (Nico/Juanpi, `contract:` PR): optionally add `wodilyHref` and `googleReviewsHref` to `SiteConfig` so the badge links can be edited from the sheet.
