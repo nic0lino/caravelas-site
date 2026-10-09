@@ -185,6 +185,34 @@ export function PhotoTags({ tags }: { tags: TagView[] }) {
   );
 }
 
+/**
+ * Point on a pill (w x h, fully rounded ends) where the ray from its centre towards (dx, dy) leaves it, plus the
+ * rotation (deg, apex up = 0) that points a triangle outwards along the outline's normal there.
+ */
+function pillEdge(w: number, h: number, dx: number, dy: number) {
+  const len = Math.hypot(dx, dy) || 1;
+  const ux = dx / len;
+  const uy = dy / len;
+  const r = h / 2;
+  const half = Math.max(0, w / 2 - r); // half-length of the flat part
+  let t: number;
+  let nx: number;
+  let ny: number;
+  const flat = Math.abs(uy) > 1e-6 ? r / Math.abs(uy) : Infinity;
+  if (Math.abs(ux) * flat <= half) {
+    t = flat; // leaves through the top or bottom side
+    nx = 0;
+    ny = Math.sign(uy) || -1;
+  } else {
+    const cx = Math.sign(ux) * half; // centre of the round end it leaves through
+    const b = ux * cx;
+    t = b + Math.sqrt(Math.max(0, b * b - cx * cx + r * r));
+    nx = (t * ux - cx) / r;
+    ny = (t * uy) / r;
+  }
+  return { ex: w / 2 + ux * t, ey: h / 2 + uy * t, angle: (Math.atan2(nx, -ny) * 180) / Math.PI };
+}
+
 function Tag({ tag, index, at, box, onMeasure, phase, canHover, following, onFocusTag, onBlurTag }: {
   tag: TagView; index: number; at: Placement; box?: Box; onMeasure: (id: string, w: number, h: number) => void; phase: Phase; canHover: boolean; following: boolean;
   onFocusTag: () => void; onBlurTag: () => void;
@@ -205,13 +233,9 @@ function Tag({ tag, index, at, box, onMeasure, phase, canHover, following, onFoc
   const { A, B } = at;
   const w = box?.w ?? 130;
   const h = box?.h ?? 26;
-  // aim the triangle from the bubble's edge at the tagged spot
-  const dx = A.x - B.x;
-  const dy = A.y - B.y;
-  const t = Math.min(dx ? w / 2 / Math.abs(dx) : Infinity, dy ? h / 2 / Math.abs(dy) : Infinity);
-  const ex = w / 2 + dx * t; // edge point, in the bubble's own box
-  const ey = h / 2 + dy * t;
-  const angle = (Math.atan2(dx, -dy) * 180) / Math.PI; // apex (up) rotated to look at the spot
+  // The triangle orbits the pill's real outline: find where the line from the centre to the tagged spot crosses the
+  // stadium (flat sides + round ends), and turn the triangle to the outline's normal there.
+  const { ex, ey, angle } = pillEdge(w, h, A.x - B.x, A.y - B.y);
 
   const anim = phase === 'in' ? 'tag-in' : phase === 'out' ? 'tag-out' : 'opacity-0';
 
@@ -240,13 +264,13 @@ function Tag({ tag, index, at, box, onMeasure, phase, canHover, following, onFoc
               aria-label={tag.label}
               onFocus={onFocusTag}
               onBlur={onBlurTag}
-              className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#0e0f0c]/85 px-3 py-1.5 text-[11px] font-bold leading-none text-white shadow-[0_2px_8px_rgba(0,0,0,0.35)] transition-colors hover:bg-black md:text-xs ${phase === 'in' ? '' : 'pointer-events-none'}`}
+              className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#0e0f0c] px-3 py-1.5 text-[11px] font-bold leading-none text-white shadow-[0_2px_8px_rgba(0,0,0,0.35)] md:text-xs ${phase === 'in' ? '' : 'pointer-events-none'}`}
             >
               <Instagram className="h-3.5 w-3.5 shrink-0" />
               {tag.handle}
               <span
                 aria-hidden
-                className="absolute h-2 w-3 bg-[#0e0f0c]/85 [clip-path:polygon(50%_0,0_100%,100%_100%)]"
+                className="absolute h-2 w-3 bg-[#0e0f0c] [clip-path:polygon(50%_0,0_100%,100%_100%)]"
                 style={{ left: ex - 6, top: ey - 7, transformOrigin: '50% 100%', transform: `rotate(${angle}deg)` }}
               />
             </a>
