@@ -13,7 +13,7 @@ const COL = 'max(24px,calc((100% - 1000px)/2))'; // left edge of the 1000px colu
 function Bio({ text }: { text: string }) {
   const [first, ...rest] = splitBio(text);
   return (
-    <div className="space-y-[1.2em] text-[11px] leading-[normal] text-black lg:text-xs">
+    <div className="space-y-[1.2em] text-xs leading-[normal] text-black">
       {first && <p className="font-bold">{first}</p>}
       {rest.map((p, i) => <p key={i}>{p}</p>)}
     </div>
@@ -46,13 +46,13 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
   }
 
   return (
-    <section id="equipa" aria-labelledby="equipa-title" className="overflow-clip bg-[#e8e6e6] lg:bg-[#ededed]">
+    <section id="equipa" aria-labelledby="equipa-title" className="relative z-10 overflow-x-clip bg-[#e8e6e6] lg:bg-[#ededed]">
       <div className="relative mx-auto max-w-[560px] lg:h-[586px] lg:max-w-none">
         {/* visual: the window on mobile, the whole card behind the text on desktop */}
-        <div data-clip className="relative aspect-[440/254.6] w-full overflow-clip bg-[#e8e6e6] lg:absolute lg:inset-0 lg:aspect-auto lg:bg-[#ededed]">
-          {/* gym photo, washed out into the card colour */}
+        <div className="relative aspect-[440/254.6] w-full bg-[#e8e6e6] lg:absolute lg:inset-0 lg:aspect-auto lg:bg-[#ededed]">
+          {/* gym photo, washed out into the card colour (clipped to the window) */}
+          <div aria-hidden className="absolute inset-0 overflow-clip">
           <div
-            aria-hidden
             className="absolute -left-[4.09%] -top-[24.35%] aspect-[3/2] w-[108.18%] lg:left-[calc(var(--col)+211px)] lg:top-[-149px] lg:aspect-auto lg:h-[800px] lg:w-[max(1200px,calc(100%-var(--col)-211px))]"
             style={{ ['--col' as string]: COL }}
           >
@@ -61,15 +61,19 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
             <div className="absolute -inset-px bg-[linear-gradient(to_right,#ededed_25.36%,rgba(237,237,237,0.32)_67.9%)]" />
             <div className="absolute -inset-px bg-[#ededed]/65" />
           </div>
+          </div>
 
-          {/* the coaches, cut out */}
-          <div
-            className="absolute left-[3.18%] top-[-3.14%] w-[74.55%] lg:left-[calc(var(--col)+541px)] lg:bottom-0 lg:top-auto lg:w-[min(628px,calc(100%-var(--col)-541px))]"
-            style={{ ['--col' as string]: COL }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={people} alt="" width={1256} height={1170} className="block h-auto w-full select-none" draggable={false} />
-            <PhotoTags tags={tags} />
+          {/* the coaches, cut out. Mobile: their heads rise 40px above the window, over the section above, and are cut at
+              the window's bottom; desktop: they stand on the card's floor. */}
+          <div data-clip className="absolute inset-x-0 bottom-0 top-[-40px] overflow-clip lg:top-0">
+            <div
+              className="absolute left-[3.18%] top-0 w-[74.55%] lg:bottom-0 lg:left-[calc(var(--col)+541px)] lg:top-auto lg:w-[min(628px,calc(100%-var(--col)-541px))]"
+              style={{ ['--col' as string]: COL }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={people} alt="" width={1256} height={1170} className="block h-auto w-full select-none" draggable={false} />
+              <PhotoTags tags={tags} />
+            </div>
           </div>
 
           {/* mobile title tab (Figma 24:7127): solid green wave, centred on the title, small gap */}
@@ -85,7 +89,7 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
           <div className="pointer-events-auto flex flex-col lg:w-[450px] lg:gap-5">
             <h2
               id="equipa-title"
-              className="hidden h-[58px] w-[450px] items-center gap-2.5 rounded-[10px] bg-[linear-gradient(to_right,#fdd806_46.556%,rgba(253,224,10,0))] p-2.5 text-[32px] font-bold leading-[normal] text-moss-900 lg:flex"
+              className="hidden h-[58px] w-[450px] items-center gap-2.5 rounded-[10px] bg-[linear-gradient(to_right,#fdd806_46.556%,rgba(253,224,10,0))] p-2.5 text-xl font-bold leading-[normal] text-moss-900 lg:flex"
             >
               <span className="shrink-0">{t.team.title}</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -95,7 +99,7 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
             <div className="grid grid-cols-2 pb-6 lg:flex lg:h-[380px] lg:gap-7 lg:pb-0">
               {sorted.map((c, i) => (
                 <article key={c.id} className={`px-2.5 pt-5 lg:w-[211px] lg:px-0 lg:pt-0 ${i === 0 && sorted.length === 2 ? 'max-lg:order-2' : ''}`}>
-                  <h3 className="border-b border-[#99c82a] pb-1 text-sm font-medium leading-[normal] text-[#496700] lg:border-[#a4cf3d] lg:pb-0 lg:text-[32px]">{c.name}</h3>
+                  <h3 className="border-b border-[#99c82a] pb-1 text-base font-medium leading-[normal] text-[#496700] lg:border-[#a4cf3d] lg:pb-0 lg:text-xl">{c.name}</h3>
                   <div className="mt-2.5 lg:pl-2.5"><Bio text={localize(c.bio, lang)} /></div>
                 </article>
               ))}

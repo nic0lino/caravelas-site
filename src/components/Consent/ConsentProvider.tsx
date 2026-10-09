@@ -45,14 +45,17 @@ export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; co
     <ConsentContext.Provider value={value}>
       {children}
       {open && (
-        <div role="region" aria-label={t.cookies.label} className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-[600px] rounded-[16px] border border-[#95be35] bg-ink p-4 text-white shadow-[0_8px_30px_rgba(0,0,0,0.5)] md:bottom-5">
-          <p className="text-xs leading-[1.45] md:text-sm">
-            {t.cookies.text}{' '}
-            {cookiesHref && <a href={cookiesHref} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{t.contact.cookies}</a>}
-          </p>
-          <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
-            <button type="button" onClick={value.decline} className="rounded-lg border border-white/60 px-4 py-2 text-xs font-bold text-white hover:bg-white/10 md:text-sm">{t.cookies.decline}</button>
-            <button type="button" onClick={value.accept} className="rounded-lg border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66%] to-[#4b6215] px-4 py-2 text-xs font-bold text-moss-900 hover:brightness-110 md:text-sm">{t.cookies.accept}</button>
+        // slim bar glued to the bottom edge of the window (like the original site's), not a floating card
+        <div role="region" aria-label={t.cookies.label} className="fixed inset-x-0 bottom-0 z-[60] border-t border-[#95be35] bg-ink text-white">
+          <div className="mx-auto flex max-w-[1248px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-1.5 md:px-6">
+            <p className="min-w-0 flex-1 basis-[24rem] text-2xs">
+              {t.cookies.text}{' '}
+              {cookiesHref && <a href={cookiesHref} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{t.contact.cookies}</a>}
+            </p>
+            <div className="flex shrink-0 items-center gap-2">
+              <button type="button" onClick={value.decline} className="rounded border border-white/60 px-2.5 py-0.5 text-2xs font-bold text-white hover:bg-white/10">{t.cookies.decline}</button>
+              <button type="button" onClick={value.accept} className="rounded border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66%] to-[#4b6215] px-2.5 py-0.5 text-2xs font-bold text-moss-900 hover:brightness-110">{t.cookies.accept}</button>
+            </div>
           </div>
         </div>
       )}

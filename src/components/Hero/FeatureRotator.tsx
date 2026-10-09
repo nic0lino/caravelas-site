@@ -67,8 +67,8 @@ export function FeatureRotator({ features, label }: { features: FeatureView[]; l
           >
             <Icon className="h-[83px] w-[79px] shrink-0 md:h-[106px] md:w-[101px]" />
             <div className="flex w-[186px] flex-col gap-2.5 text-white sm:w-[248px] md:w-[358px]">
-              <p className="text-base font-black uppercase leading-[normal] md:text-xl">{f.title}</p>
-              <p className="text-xs font-light leading-[normal] md:text-xl">{f.text}</p>
+              <p className="text-base font-black uppercase leading-[normal] md:text-lg">{f.title}</p>
+              <p className="text-sm font-light leading-[normal] md:text-lg">{f.text}</p>
             </div>
           </div>
         );

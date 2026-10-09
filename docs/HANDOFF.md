@@ -26,6 +26,8 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 
 - Team section follows the Figma frame **"Os capitaes"** (`24:7062`, page `page`), which supersedes SPEC §6.5: gym photo (`team-bg.jpg`, 1200×800 offset -149) faded into the card (#ededed gradient 32%→100% + 65% veil) behind the cut-out coaches (`team-people.webp`, 628×586, standing on the card floor, card 586 high). Mobile (< lg) uses the same recipe in a 255-high window with Ana first, then Feu (Frame 56 `24:7090`). Desktop composition from `lg` (1024+).
 
+- Type scale (2026-10-09): only 12/14/16/20/32 + fluid `display` (+ `2xs` 10px for the cookie bar), defined in `globals.css`. Table: class names 14px, coach line 12px, times 20px, rows 48. Marquee 20px (14 mobile). Hero stacks below `lg`. Cookie notice is a slim bottom bar. Mobile team: the cut-out rises 40px over the section above (schedule section's bottom padding is 12px). Schedule table + pricing band are one card (table rounds only the top).
+
 ## Next steps
 - Compare against Figma at 1728 / 440 widths (only checked by eye at 1200, 599 and 375); Playwright smoke test; Lighthouse on the deployed URL (not run).
 - Hero: separate portrait video crop for mobile if needed; the source video is a split-screen of two clips, so check the crop on phones. Poster is a plain frame, not a pre-rendered shader frame.

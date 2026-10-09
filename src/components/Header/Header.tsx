@@ -34,7 +34,7 @@ export function Header({ lang, t, config }: { lang: Lang; t: UiStrings; config: 
         <Link href={langPath(lang)} prefetch={false} aria-label="CrossFit Caravelas"><Logo /></Link>
         <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex xl:gap-5">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="whitespace-nowrap px-2.5 py-2.5 text-base font-light uppercase text-white underline-offset-[6px] hover:text-yellow hover:underline xl:px-5 xl:text-xl">{l.label}</a>
+            <a key={l.href} href={l.href} className="whitespace-nowrap px-2.5 py-2.5 text-base font-light uppercase text-white underline-offset-[6px] hover:text-yellow hover:underline xl:px-5">{l.label}</a>
           ))}
         </nav>
         <div className="hidden shrink-0 items-center justify-end gap-[26px] lg:flex xl:w-[224px]">

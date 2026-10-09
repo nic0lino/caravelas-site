@@ -22,8 +22,8 @@ export function MapEmbed({
           <a href={href} target="_blank" rel="noopener noreferrer" className="sr-only-text">{alt}</a>
         </>
       ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center text-xs text-white/80 md:text-sm">
-          <p>{offLabel}</p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center text-sm text-white/80">
+          {status === 'declined' && <p>{offLabel}</p>}
           <button type="button" onClick={accept} className="rounded-lg border border-[#99c82a] px-4 py-2 font-bold text-[#99c82a] hover:bg-[#99c82a] hover:text-footer">{loadLabel}</button>
           <a href={href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-white">{openLabel}</a>
         </div>

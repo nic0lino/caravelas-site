@@ -15,7 +15,7 @@ export default async function StatusPage() {
   };
   return (
     <main className="container-col py-10 text-sm">
-      <h1 className="mb-4 text-2xl font-bold">Content status</h1>
+      <h1 className="mb-4 text-xl font-bold">Content status</h1>
       <dl className="mb-6 grid grid-cols-[max-content_1fr] gap-x-6 gap-y-1">
         <dt className="font-bold">source</dt><dd>{c.meta.source}</dd>
         <dt className="font-bold">fetchedAt</dt><dd>{c.meta.fetchedAt}</dd>

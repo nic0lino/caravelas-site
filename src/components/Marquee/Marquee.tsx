@@ -65,19 +65,19 @@ export function Marquee({ items, label, pauseLabel, playLabel }: { items: Marque
           const body = (
             <>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset('/assets/mark.svg')} alt="" width={103} height={33} className="mx-[7px] h-auto w-[29px] shrink-0 md:mx-[25px] md:w-[103px]" />
+              <img src={asset('/assets/mark.svg')} alt="" width={103} height={33} className="mx-[7px] h-auto w-[29px] shrink-0 md:mx-[18px] md:w-[66px]" />
               <span className="font-bold">{it.highlight}</span>
               {it.text && <span className="ml-[0.3em] font-light">{it.text}</span>}
             </>
           );
           return (
-            <span key={`${r}-${it.id}`} data-first={first || undefined} className="marquee-item flex items-center whitespace-nowrap text-xs md:text-[32px]">
+            <span key={`${r}-${it.id}`} data-first={first || undefined} className="marquee-item flex items-center whitespace-nowrap text-sm md:text-lg">
               {it.href ? (
                 <a href={it.href} target="_blank" rel="noopener noreferrer" tabIndex={n === 0 && r === 0 ? undefined : -1} className="flex items-center underline-offset-4 hover:underline">{body}</a>
               ) : (
                 <span className="flex items-center">{body}</span>
               )}
-              <span aria-hidden className="ml-2.5 text-xs font-light md:text-xl">|</span>
+              <span aria-hidden className="ml-2.5 text-sm font-light md:text-lg">|</span>
             </span>
           );
         }),
@@ -93,7 +93,7 @@ export function Marquee({ items, label, pauseLabel, playLabel }: { items: Marque
       className="marquee-root relative overflow-hidden bg-yellow text-black"
       style={{ ['--marquee-duration' as string]: `${duration}s` }}
     >
-      <div className="marquee-track h-[33px] md:h-[67px]">{copy(0)}{copy(1)}</div>
+      <div className="marquee-track h-9 md:h-14">{copy(0)}{copy(1)}</div>
       <ul className="sr-only-text">
         {items.map((it) => (
           <li key={it.id}>

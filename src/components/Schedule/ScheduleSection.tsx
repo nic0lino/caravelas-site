@@ -28,9 +28,9 @@ export function ScheduleSection({ lang, t, content }: { lang: Lang; t: UiStrings
 
   // Figma 1:1255: radial #4b5c0e → #34420a → #1d2705, ellipse 100% × 63% centred at (49%, 90%); py 40; title Inter Bold 36.
   return (
-    <section id="horarios" aria-labelledby="horarios-title" className="bg-[radial-gradient(ellipse_100%_63%_at_49%_90%,#4b5c0e_0%,#34420a_50%,#1d2705_100%)] py-8 md:py-10">
+    <section id="horarios" aria-labelledby="horarios-title" className="bg-[radial-gradient(ellipse_100%_63%_at_49%_90%,#4b5c0e_0%,#34420a_50%,#1d2705_100%)] pb-3 pt-8 md:pt-10 lg:pb-10">
       <div className="container-col">
-        <h2 id="horarios-title" className="mb-5 pt-2 font-[family-name:var(--font-inter)] text-2xl font-bold text-white md:flex md:h-[88px] md:items-center md:px-5 md:pt-10 md:text-[36px]">
+        <h2 id="horarios-title" className="mb-5 pt-2 font-[family-name:var(--font-inter)] text-lg font-bold text-white md:flex md:h-[88px] md:items-center md:px-5 md:pt-10 md:text-xl">
           {t.schedule.title}
         </h2>
         <ScheduleTable view={view} />

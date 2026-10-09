@@ -63,12 +63,12 @@ export function ScheduleDayTabs({ view }: { view: ScheduleView }) {
           if (cells.length === 0)
             return (
               <li key={`${day}-${time}`} style={style} className={`flex min-h-[64px] items-center gap-4 rounded-md bg-black/10 px-4 py-3 ${anim}`}>
-                <span className="w-14 text-xl font-black text-[#a4cf3d]/45">{time}</span>
+                <span className="w-14 text-lg font-black text-[#a4cf3d]/45">{time}</span>
               </li>
             );
           return cells.map((c) => (
             <li key={`${day}-${c.id}`} data-hl="false" style={style} className={`flex min-h-[64px] items-center gap-4 rounded-md px-4 py-3 ${kindClass[c.kind]} ${anim}`}>
-              <span className="w-14 text-xl font-black text-[#a4cf3d]">{time}</span>
+              <span className="w-14 text-lg font-black text-[#a4cf3d]">{time}</span>
               <span><CellText cell={c} coachLabel={view.labels.coach} large /></span>
             </li>
           ));

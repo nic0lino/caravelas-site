@@ -242,15 +242,6 @@ function Tag({ tag, index, at, box, onMeasure, phase, canHover, following, onFoc
 
   return (
     <>
-      {/* the tagged spot: a quiet dot (pulses on pointer devices until the tags are out) */}
-      <span
-        aria-hidden
-        className={`pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 shadow-[0_0_0_3px_rgba(255,255,255,0.25)] ${following ? 'hidden' : ''}`}
-        style={{ left: A.x, top: A.y }}
-      >
-        {canHover && phase !== 'in' && <span className="dot-pulse absolute inset-0 rounded-full bg-white/70" style={{ animationDelay: `${index * 600}ms` }} />}
-      </span>
-
       <div
         className="absolute left-0 top-0 will-change-transform"
         style={{ transform: `translate3d(${B.x}px, ${B.y}px, 0) translate(-50%, -50%)`, transition: glide ? 'transform 110ms ease-out' : 'none' }}
@@ -265,7 +256,7 @@ function Tag({ tag, index, at, box, onMeasure, phase, canHover, following, onFoc
               aria-label={tag.label}
               onFocus={onFocusTag}
               onBlur={onBlurTag}
-              className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#0e0f0c] px-3 py-1.5 text-[11px] font-bold leading-none text-white shadow-[0_2px_8px_rgba(0,0,0,0.35)] md:text-xs ${phase === 'in' ? '' : 'pointer-events-none'}`}
+              className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#0e0f0c] px-3 py-1.5 text-xs font-bold leading-none text-white shadow-[0_2px_8px_rgba(0,0,0,0.35)] ${phase === 'in' ? '' : 'pointer-events-none'}`}
             >
               <Instagram className="h-3.5 w-3.5 shrink-0" />
               {tag.handle}

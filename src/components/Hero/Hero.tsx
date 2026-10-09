@@ -21,11 +21,13 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
       <div className="absolute right-10 top-5 z-10 lg:hidden"><LangSwitch lang={lang} label={t.langLabel} className="h-[35px] w-[101px]" /></div>
 
       <div className="container-col flex flex-col px-10 pb-[68px] pt-[117px] md:min-h-[667px] md:px-6 md:pb-[48px] md:pt-[225px]">
-        <div className="flex flex-1 flex-col md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-1 flex-col lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col items-start gap-5 md:gap-10">
-            <h1 id="hero-title" className="max-w-[563px] text-[clamp(2.6rem,14.5vw,4rem)] font-black uppercase leading-[0.78] text-yellow md:text-[96px]">
-              {/* brand name: intentionally never translated, always the PT text */}
-              {config.heroTitle.pt}
+            <h1 id="hero-title" className="max-w-[563px] text-display font-black uppercase text-yellow">
+              {/* brand name: intentionally never translated, always the PT text; words never split at the hyphen */}
+              {config.heroTitle.pt.split(' ').map((w, i) => (
+                <span key={i}>{i > 0 && ' '}<span className="inline-block whitespace-nowrap">{w}</span></span>
+              ))}
             </h1>
             <FeatureRotator features={views} label={t.features.label} />
           </div>
@@ -33,7 +35,7 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
             href={config.ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-auto mt-[87px] flex min-h-[43px] w-[285px] max-w-full shrink-0 flex-wrap items-center justify-center gap-x-2.5 rounded-[10px] border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 drop-shadow-[4px_4px_2.85px_#304400] transition hover:-translate-y-px hover:brightness-110 active:translate-y-px md:mx-0 md:mt-0 md:min-h-[70px] md:w-[402px] md:px-10 md:rounded-2xl md:text-xl"
+            className="mx-auto mt-[87px] flex min-h-[43px] w-[285px] max-w-full shrink-0 flex-wrap items-center justify-center gap-x-2.5 rounded-[10px] border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 drop-shadow-[4px_4px_2.85px_#304400] transition hover:-translate-y-px hover:brightness-110 active:translate-y-px md:mx-0 md:mt-10 md:min-h-[70px] md:w-[402px] md:px-6 md:text-lg lg:mt-0 md:rounded-2xl "
           >
             <span className="font-medium">{localize(config.ctaLabel, lang)}</span>
             <span className="font-black">{localize(config.ctaBadge, lang)}</span>

@@ -27,8 +27,8 @@ export function Pricing({ lang, plans, config }: { lang: Lang; plans: PricePlan[
               {/* every plan has the same footprint; the featured one just gets the outline (same colour as the separators) */}
               <div className={`flex w-[70px] shrink-0 flex-col items-center rounded-[7px] border py-3 md:w-[117px] ${p.featured ? 'border-[#95be35]' : 'border-transparent'}`}>
                 <div className="flex flex-col items-center gap-3.5 px-0.5 text-center text-white md:px-1">
-                  <span className="flex min-h-[2.5em] items-center text-[10px] font-light leading-tight md:min-h-0 md:text-xs md:leading-none">{localize(p.label, lang)}</span>
-                  <span className="text-xl font-bold leading-none md:text-[32px]">{formatPrice(p.priceEUR)}</span>
+                  <span className="flex min-h-[3.75em] items-end justify-center text-xs font-light leading-tight md:min-h-0 md:leading-none">{localize(p.label, lang)}</span>
+                  <span className="text-lg font-bold leading-none md:text-xl">{formatPrice(p.priceEUR)}</span>
                 </div>
               </div>
             </li>
@@ -37,7 +37,7 @@ export function Pricing({ lang, plans, config }: { lang: Lang; plans: PricePlan[
       </ul>
       {(updated || promo) && (
         <div className="relative mt-4 flex flex-col-reverse items-center gap-2.5 text-center text-white md:max-w-full md:flex-row md:justify-between md:gap-0 md:text-left lg:w-[656px]">
-          {updated && <p className="text-[11px] font-light md:w-[244px] md:text-xs">{updated}</p>}
+          {updated && <p className="text-xs font-light md:w-[244px]">{updated}</p>}
           {promo && (
             <p className="text-xs font-bold md:w-[305px] md:text-right">
               {config.pricesPromoHref ? <a href={config.pricesPromoHref} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{promo}</a> : promo}

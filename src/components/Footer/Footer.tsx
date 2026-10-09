@@ -28,12 +28,12 @@ export function Footer({ t, config, lang }: { t: UiStrings; config: SiteConfig; 
       <div className="mx-auto flex w-full max-w-[600px] flex-col gap-2.5 px-4 md:px-0">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-6">
-            <div className="grid grid-cols-[1fr_1fr] gap-5 md:flex md:h-[301px] md:w-[202px] md:shrink-0 md:flex-col md:justify-between md:gap-0">
+            <div className="grid grid-cols-[1fr_1fr] gap-5 md:flex md:min-h-[301px] md:w-[202px] md:shrink-0 md:flex-col md:justify-between md:gap-5">
               <div>
-                <h2 className="text-xs font-normal leading-[normal] text-[#99c82a] md:text-xl">
+                <h2 className="text-sm font-normal leading-[normal] text-[#99c82a] md:text-lg">
                   {t.contact.headingA}<strong className="font-black">{t.contact.headingB}</strong>
                 </h2>
-                <p className="mt-3 text-[10px] leading-[normal] md:mt-5 md:text-xs">{t.contact.sub}</p>
+                <p className="mt-3 text-xs leading-[normal] md:mt-5">{t.contact.sub}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {config.whatsapp && (
                     <a href={`https://wa.me/${config.whatsapp.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className={btn}><WhatsApp className="h-4 w-4" />{t.contact.whatsapp}</a>
@@ -43,7 +43,7 @@ export function Footer({ t, config, lang }: { t: UiStrings; config: SiteConfig; 
                   )}
                 </div>
               </div>
-              <div className="text-[10px] font-black leading-[normal] md:text-xs">
+              <div className="text-xs font-black leading-[normal]">
                 <p className="uppercase text-[#fcd911]">{t.contact.address}</p>
                 <address className="font-normal not-italic">{a.street}<br />{a.postalCode}, {a.city}.</address>
                 <p className="mt-3 uppercase text-[#fcd90d]">{t.contact.hours}</p>
@@ -76,7 +76,7 @@ export function Footer({ t, config, lang }: { t: UiStrings; config: SiteConfig; 
             </span>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-4 text-[10px] leading-[normal]">
+        <div className="flex items-center justify-between gap-4 text-xs leading-[normal]">
           <p>
             © {new Date().getFullYear()} CrossFit Caravelas.{' '}
             <PolicyLink href={config.privacyHref} label={t.contact.privacy} />.{' '}

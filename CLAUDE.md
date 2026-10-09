@@ -24,3 +24,5 @@ Spec: `docs/SPEC.md` (wins over Figma; deviations are in §12). Contract: `docs/
 - **Schedule table interaction is subtle:** today's column header gets a soft lime tint (no strong yellow); hovering a class lightens its cell (200ms) and its day label goes Regular → Black.
 - Card groups have consistent rounded corners (16px) top and bottom, on mobile too.
 - Follow Figma values for sizes/colours; deviations only when the owner asks.
+
+- **Type scale** lives in `src/app/globals.css` (`@theme`): 12/14/16/20/32 + the fluid hero `display`; no `text-[Npx]`. The only exception is `text-2xs` (10px), reserved for the cookie bar. The schedule table is the priority for legibility (class names 14px, coach line 12px, times 20px).

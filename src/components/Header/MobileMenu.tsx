@@ -54,7 +54,7 @@ export function MobileMenu({
           </div>
           <nav className="mt-6 flex flex-col gap-6">
             {links.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-3xl font-light uppercase text-white hover:text-yellow">{l.label}</a>
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-xl font-light uppercase text-white hover:text-yellow">{l.label}</a>
             ))}
           </nav>
           <div className="mt-auto flex flex-col gap-6 pb-4">{footer}</div>

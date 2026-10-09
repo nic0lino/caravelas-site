@@ -6,8 +6,10 @@ import type { Weekday } from '@/content/schema';
 import { CellText } from './CellText';
 import { kindClass, type ScheduleView } from './view';
 
-// Figma 1:1255: table #232e07 r16, time column 143 wide, header row 32, body rows 43.
+// Figma 1:1255: table #232e07 r16, time column 143 wide. Rows are 48 (Figma 43) and header 36 so that class names can be
+// 14px and the coach line 12px (Figma had 12/8): the table is the most-read part of the site.
 // Lines: this table uses 0.5px hairlines (the pricing band stays 1px). Row rules white, column dividers lime #95be35.
+// One card with the pricing band below: only the top corners are rounded here, the band rounds the bottom.
 // Interaction (subtle, not decisive): today's column header gets a soft lime tint; hovering a class lightens its cell
 // and the day label goes from Regular to Black.
 const HAIR = 'border-white';
@@ -22,15 +24,15 @@ export function ScheduleTable({ view }: { view: ScheduleView }) {
   const lastDay = view.days[view.days.length - 1];
 
   return (
-    <div className="hidden overflow-hidden rounded-[16px] bg-[#232e07] md:block">
+    <div className="hidden overflow-hidden rounded-t-[16px] bg-[#232e07] md:block">
       <table className="w-full table-fixed border-collapse text-center" onMouseLeave={() => setHover(null)}>
         <colgroup>
           <col style={{ width: 143 }} />
           {view.days.map((d) => <col key={d} />)}
         </colgroup>
         <thead>
-          <tr className="h-8">
-            <th scope="col" className={`border-b-[0.5px] p-0 text-xs font-normal text-white ${HAIR} ${VLINE}`}>{view.labels.time}</th>
+          <tr className="h-9">
+            <th scope="col" className={`border-b-[0.5px] p-0 text-sm font-normal text-white ${HAIR} ${VLINE}`}>{view.labels.time}</th>
             {view.days.map((d) => (
               <th
                 key={d}
@@ -48,7 +50,7 @@ export function ScheduleTable({ view }: { view: ScheduleView }) {
             const b = ri === view.times.length - 1 ? '' : 'border-b-[0.5px]';
             return (
               <tr key={time}>
-                <th scope="row" className={`h-[43px] p-0 text-xl font-black text-[#a4cf3d] ${b} ${HAIR} ${VLINE}`}>{time}</th>
+                <th scope="row" className={`h-12 p-0 text-lg font-black text-[#a4cf3d] ${b} ${HAIR} ${VLINE}`}>{time}</th>
                 {view.days.map((d) => {
                   const cells = view.cells[time]?.[d] ?? [];
                   const hl = hover?.day === d && hover.time === time;
@@ -61,7 +63,7 @@ export function ScheduleTable({ view }: { view: ScheduleView }) {
                       {cells.map((c, i) => (
                         <div
                           key={c.id}
-                          className={`flex min-h-[43px] flex-col items-center justify-center px-2.5 py-2 transition-colors duration-200 ${hl ? TINT : 'bg-transparent'} ${i > 0 ? 'border-t-[0.5px] border-white' : ''}`}
+                          className={`flex min-h-12 flex-col items-center justify-center px-2.5 py-2 transition-colors duration-200 ${hl ? TINT : 'bg-transparent'} ${i > 0 ? 'border-t-[0.5px] border-white' : ''}`}
                         >
                           <CellText cell={c} coachLabel={view.labels.coach} />
                         </div>
