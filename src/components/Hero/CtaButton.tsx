@@ -44,7 +44,7 @@ export function CtaButton({ href, label, badge }: { href: string; label: string;
 
   return (
     <>
-      <div className={`group relative mx-auto mt-[87px] md:ml-auto md:mr-0 md:mt-10 lg:mt-0 ${SIZE}`}>
+      <div className={`group relative mx-auto mt-[87px] md:ml-auto md:mr-0 md:mt-0 md:shrink-0 ${SIZE}`}>
         <span aria-hidden className={`${SHADOW} ${ROUND} group-hover:translate-x-[3px] group-hover:translate-y-[3px]`} />
         <a ref={original} href={href} target="_blank" rel="noopener noreferrer" className={`relative ${FACE} ${ROUND}`}>
           {content}

@@ -9,8 +9,8 @@ const CROSSFIT_FALLBACK = 'https://www.crossfit.com/affiliate';
 
 type Badge = { id: string; src: string; w: number; h: number; alt: string; href: string };
 
-// One linear row as wide as the features block above it (w-0 + min-w-full: it takes the parent's width but never widens it).
-// Widths are weighted by aspect ratio so all three badges share the same height.
+// One linear row, never wider than the features block (295 / 357 / 489px, see FeatureRotator), and it gives way to the CTA
+// sharing its row. Widths are weighted by aspect ratio so all three badges share the same height.
 export function Badges({ affiliateHref }: { affiliateHref?: string }) {
   const badges: Badge[] = [
     { id: 'crossfit', src: '/assets/badge-crossfit.svg', w: 275, h: 108, alt: 'CrossFit Affiliates', href: affiliateHref ?? CROSSFIT_FALLBACK },
@@ -19,7 +19,7 @@ export function Badges({ affiliateHref }: { affiliateHref?: string }) {
   ];
 
   return (
-    <ul className="flex w-0 min-w-full items-center gap-3 md:gap-6">
+    <ul className="flex w-full min-w-0 max-w-[295px] items-center gap-3 sm:max-w-[357px] md:w-auto md:max-w-[489px] md:flex-1 md:gap-6">
       {badges.map((b) => (
         <li key={b.id} className="min-w-0 grow-[var(--r)] basis-0" style={{ '--r': b.w / b.h } as React.CSSProperties}>
           <a

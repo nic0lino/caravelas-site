@@ -22,21 +22,19 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(14,22,2,0.85),rgba(14,22,2,0.1)_60%),linear-gradient(to_right,rgba(0,0,0,0.6),rgba(0,0,0,0.25)_70%)]" />
       <div className="absolute right-10 top-5 z-10 lg:hidden"><LangSwitch lang={lang} label={t.langLabel} className="h-[35px] w-[101px]" /></div>
 
-      <div className="container-col flex flex-col px-10 pb-[68px] pt-[117px] md:min-h-[667px] md:px-6 md:pb-[48px] md:pt-[225px]">
-        <div className="flex flex-1 flex-col lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex flex-col items-start gap-5 md:gap-10">
-            <h1 id="hero-title" className="max-w-[563px] text-display font-black uppercase text-yellow">
-              {/* brand name: intentionally never translated, always the PT text; words never split at the hyphen */}
-              {config.heroTitle.pt.split(' ').map((w, i) => (
-                <span key={i}>{i > 0 && ' '}<span className="inline-block whitespace-nowrap">{w}</span></span>
-              ))}
-            </h1>
-            {/* the badges never get wider than the features block: the row is sized by it, not by its own content */}
-            <div className="flex w-fit max-w-full flex-col gap-5 md:gap-10">
-              <FeatureRotator features={views} label={t.features.label} />
-              <Badges affiliateHref={config.affiliateHref} />
-            </div>
-          </div>
+      <div className="container-col flex flex-col px-10 pb-[68px] pt-[117px] md:min-h-[667px] md:px-6 md:pb-[48px] md:pt-24">
+        {/* md+: the text body is centred in the free space; credentials and CTA share the bottom row */}
+        <div className="flex flex-col items-start gap-5 md:flex-1 md:justify-center md:gap-10 md:py-10">
+          <h1 id="hero-title" className="max-w-[563px] text-display font-black uppercase text-yellow">
+            {/* brand name: intentionally never translated, always the PT text; words never split at the hyphen */}
+            {config.heroTitle.pt.split(' ').map((w, i) => (
+              <span key={i}>{i > 0 && ' '}<span className="inline-block whitespace-nowrap">{w}</span></span>
+            ))}
+          </h1>
+          <FeatureRotator features={views} label={t.features.label} />
+        </div>
+        <div className="mt-5 flex flex-col md:mt-0 md:flex-row md:items-end md:justify-between md:gap-6">
+          <Badges affiliateHref={config.affiliateHref} />
           <CtaButton href={config.ctaHref} label={localize(config.ctaLabel, lang)} badge={localize(config.ctaBadge, lang)} />
         </div>
       </div>
