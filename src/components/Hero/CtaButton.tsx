@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-// The trial-class button (Figma 16:942 / 21:2593). Its hard shadow is its own layer so it can use `multiply`
+// The trial-class button (Figma 16:942 / 21:2593). Compact 285×43 up to lg (centred on phones, right-aligned from md); 402×70 from lg. Its hard shadow is its own layer so it can use `multiply`
 // (a CSS drop-shadow can't pick a blend mode, and normal blending looks dirty over light backgrounds).
-const SIZE = 'w-[285px] max-w-full md:w-[402px]';
-const ROUND = 'rounded-[10px] md:rounded-2xl';
+const SIZE = 'w-[285px] max-w-full lg:w-[402px]';
+const ROUND = 'rounded-[10px] lg:rounded-2xl';
 const FACE =
-  'flex min-h-[43px] w-full flex-wrap items-center justify-center gap-x-2.5 border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 transition-[color,filter,translate] duration-200 hover:-translate-y-px hover:text-white hover:brightness-110 active:translate-y-px md:min-h-[70px] md:px-6 md:text-lg';
+  'flex min-h-[43px] w-full flex-wrap items-center justify-center gap-x-2.5 border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 transition-[color,filter,translate] duration-200 hover:-translate-y-px hover:text-white hover:brightness-110 active:translate-y-px lg:min-h-[70px] lg:px-6 lg:text-lg';
 // 4px 4px, blur 2.85px, #304400 — multiplied into whatever is behind
 const SHADOW = 'pointer-events-none absolute inset-0 translate-x-1 translate-y-1 bg-[#304400] blur-[2.85px] mix-blend-multiply transition-[translate] duration-200';
 
@@ -40,11 +40,11 @@ export function CtaButton({ href, label, badge }: { href: string; label: string;
     </>
   );
   // same column and gutters as the hero; same alignment as the original at each breakpoint
-  const column = 'container-col flex justify-center px-10 md:justify-start md:px-6 lg:justify-end';
+  const column = 'container-col flex justify-center px-10 md:justify-end md:px-6';
 
   return (
     <>
-      <div className={`group relative mx-auto mt-[87px] md:mx-0 md:mt-10 lg:mt-0 ${SIZE}`}>
+      <div className={`group relative mx-auto mt-[87px] md:ml-auto md:mr-0 md:mt-10 lg:mt-0 ${SIZE}`}>
         <span aria-hidden className={`${SHADOW} ${ROUND} group-hover:translate-x-[3px] group-hover:translate-y-[3px]`} />
         <a ref={original} href={href} target="_blank" rel="noopener noreferrer" className={`relative ${FACE} ${ROUND}`}>
           {content}
