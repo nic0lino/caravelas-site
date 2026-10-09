@@ -10,7 +10,7 @@ import { MobileMenu } from './MobileMenu';
 
 // The bar uses the SAME column and gutters as the hero (1000px; 40px on phones), so logo, nav and icons line up with the
 // hero's title and button. Menu stays on ONE line: below lg (1024) it collapses into the hamburger, between lg and xl it uses tighter gaps/size.
-// Figma 1:1743 — bg #304400, py 40, content 1200 wide; logo 152×67, nav gap 20 (px 20 / py 10, 20px Light),
+// Figma 1:1743 — bg #304400, py 40 (owner trimmed the bar ~40%: py 16, logo 130×57), content 1200 wide; logo 152×67, nav gap 20 (px 20 / py 10, 20px Light),
 // right block 224 wide: language box 67 high (#0e0f0c, r10) + 42px social icons.
 export function Header({ lang, t, config }: { lang: Lang; t: UiStrings; config: SiteConfig }) {
   const links = [
@@ -31,7 +31,7 @@ export function Header({ lang, t, config }: { lang: Lang; t: UiStrings; config: 
   );
   return (
     <header className="bg-moss-900">
-      <div className="container-col flex items-center justify-between gap-4 px-10 py-5 md:px-6 md:py-10">
+      <div className="container-col flex items-center justify-between gap-4 px-10 py-5 md:px-6 md:py-4">
         <Link href={langPath(lang)} prefetch={false} aria-label="CrossFit Caravelas"><Logo /></Link>
         <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
