@@ -4,6 +4,7 @@ import type { UiStrings } from '@/i18n';
 import { LangSwitch } from '../Header/LangSwitch';
 import { Badges } from './Badges';
 import { CtaButton } from './CtaButton';
+import type { AnimName } from './FeatureAnimation';
 import { FeatureRotator } from './FeatureRotator';
 import { HeroBackground } from './HeroBackground';
 
@@ -11,9 +12,17 @@ import { HeroBackground } from './HeroBackground';
 // title 96/78% Lato Black #fde00a (563 wide), feature row gap 30, CTA 402×70 r16.
 // Mobile 21:2583 (440 wide): px 40, title 64 at 117, feature row, CTA 285×43 r10 centered.
 export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; config: SiteConfig; features: Feature[] }) {
+  // Each feature has its own animation: by icon, and the two ships by order (first = ship-a, second = ship-b).
+  let ships = 0;
   const views = [...features]
     .sort((a, b) => a.order - b.order)
-    .map((f) => ({ id: f.id, icon: f.icon, title: localize(f.title, lang), text: localize(f.text, lang) }));
+    .map((f) => ({
+      id: f.id,
+      icon: f.icon,
+      anim: (f.icon === 'ship' ? (ships++ === 0 ? 'ship-a' : 'ship-b') : f.icon) as AnimName,
+      title: localize(f.title, lang),
+      text: localize(f.text, lang),
+    }));
 
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-black">

@@ -42,6 +42,12 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 - The Google rating (4.9, "more than 100 reviews") is baked into the SVG artwork: re-export it when the number changes.
 - The Wodily and Google URLs are constants in `Badges.tsx`, not in the contract (see Requests).
 
+## Feature animations (Lottie)
+- Sources: Nico's `animacion1-4.json` (red strokes) → recoloured white and minified into `public/assets/anim/feature-{lifebuoy,anchor,ship-a,ship-b}.json` (only the red was swapped; the blue/brown layers are track mattes). 300 frames @ 60fps = 5s = how long each feature stays on screen.
+- Mapping (by content, not by file number): lifebuoy→anim1, anchor→anim3, 1st `ship`→anim2, 2nd `ship`→anim4 (by `order`). Done in `Hero.tsx`; a new feature icon needs a new animation + entry in `FeatureAnimation.tsx` or it falls back to the static icon.
+- `FeatureRotator.tsx` is now timed by a remaining-time clock (hover/focus/offscreen freezes animation and countdown together). `FeatureAnimation.tsx` lazy-loads `lottie-web` (light SVG build, ~47KB gz, new dependency) + the JSON for the visible and next feature; static icon is the fallback (SSR, reduced motion, failed load).
+- Budget note: that chunk is lazy, like the shader one.
+
 ## Open questions
 - Real RegyBox link, WhatsApp, email, social URLs, opening hours; 3×/sem price (desktop €70 vs mobile).
 - Museo Sans licence (D4). The 4th feature reuses the ship icon.
