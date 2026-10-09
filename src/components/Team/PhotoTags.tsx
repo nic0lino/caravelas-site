@@ -11,12 +11,12 @@ export interface TagView {
   side: 'left' | 'right' | 'gym';
 }
 
-// Positions are fractions of the (square) team photo, tuned for public/assets/team.jpg.
-// anchor = the thing being tagged, bubble = the roomy spot nearby where the tag prefers to float.
+// Positions are fractions of the cut-out of the coaches (x of its width, y of its height), tuned for
+// public/assets/team-people.webp. anchor = the thing being tagged, bubble = where the tag prefers to float.
 const SPOTS = {
-  left: { anchor: { x: 0.265, y: 0.31 }, bubble: { x: 0.15, y: 0.47 } }, // her shoulder, left of the shirt logo
-  right: { anchor: { x: 0.58, y: 0.28 }, bubble: { x: 0.78, y: 0.43 } }, // his shoulder, clear of his face on small screens
-  gym: { anchor: { x: 0.9, y: 0.32 }, bubble: { x: 0.78, y: 0.2 } }, // the gym tags the rack bars in the background
+  left: { anchor: { x: 0.23, y: 0.25 }, bubble: { x: 0.14, y: 0.5 } }, // her face / her side
+  right: { anchor: { x: 0.55, y: 0.22 }, bubble: { x: 0.78, y: 0.46 } }, // his face / his side
+  gym: { anchor: { x: 0.97, y: 0.26 }, bubble: { x: 0.82, y: 0.1 } }, // the rack behind him, in the gym photo
 } as const;
 
 const MARGIN = 8; // never closer than this to the edge of the visible photo
@@ -25,6 +25,7 @@ const GAP = 6; // nor to another tag
 interface Rect { l: number; t: number; r: number; b: number }
 interface Visible { left: number; top: number; right: number; bottom: number }
 interface Box { w: number; h: number }
+interface Dims { w: number; h: number }
 interface Placement { A: { x: number; y: number }; B: { x: number; y: number } }
 
 /**
@@ -32,15 +33,15 @@ interface Placement { A: { x: number; y: number }; B: { x: number; y: number } }
  * another tag) it swings to the other side of the tagged point — mirrored horizontally, vertically or both — and only
  * if nothing fits does it get pushed inside. So a tag never leaves through the margins.
  */
-function place(tags: TagView[], boxes: Record<string, Box>, size: number, vis: Visible, follow: { side: Side; x: number; y: number } | null): Placement[] {
+function place(tags: TagView[], boxes: Record<string, Box>, dims: Dims, vis: Visible, follow: { side: Side; x: number; y: number } | null): Placement[] {
   const taken: Rect[] = [];
   return tags.map((t) => {
     const spot = SPOTS[t.side];
     const box = boxes[t.id] ?? { w: 130, h: 26 };
     const following = follow?.side === t.side;
     // following: the cursor is the tagged spot and the bubble sits diagonally beside it (down-right first)
-    const A = following ? { x: follow.x, y: follow.y } : { x: spot.anchor.x * size, y: spot.anchor.y * size };
-    const P = following ? { x: A.x + box.w / 2 + 12, y: A.y + box.h / 2 + 16 } : { x: spot.bubble.x * size, y: spot.bubble.y * size };
+    const A = following ? { x: follow.x, y: follow.y } : { x: spot.anchor.x * dims.w, y: spot.anchor.y * dims.h };
+    const P = following ? { x: A.x + box.w / 2 + 12, y: A.y + box.h / 2 + 16 } : { x: spot.bubble.x * dims.w, y: spot.bubble.y * dims.h };
     const rect = (c: { x: number; y: number }): Rect => ({ l: c.x - box.w / 2, t: c.y - box.h / 2, r: c.x + box.w / 2, b: c.y + box.h / 2 });
     const inside = (r: Rect) => r.l >= vis.left + MARGIN && r.r <= vis.right - MARGIN && r.t >= vis.top + MARGIN && r.b <= vis.bottom - MARGIN;
     const clear = (r: Rect) => taken.every((o) => r.r + GAP <= o.l || r.l - GAP >= o.r || r.b + GAP <= o.t || r.t - GAP >= o.b);
@@ -66,8 +67,8 @@ type Side = TagView['side'];
  * his half, or the rack bars in the background for the gym.
  */
 function zoneAt(x: number, y: number): Side {
-  if (x >= 0.78 && y <= 0.42) return 'gym';
-  return x < 0.455 ? 'left' : 'right';
+  if (x >= 0.86 && y <= 0.45) return 'gym';
+  return x < 0.47 ? 'left' : 'right';
 }
 
 /**
@@ -83,7 +84,7 @@ export function PhotoTags({ tags }: { tags: TagView[] }) {
   const [revealAll, setRevealAll] = useState(false); // touch: every tag, once the photo has been seen
   const [shown, setShown] = useState<Record<string, boolean>>({}); // has been out at least once (so it can animate away)
   const [canHover, setCanHover] = useState(true);
-  const [size, setSize] = useState(0);
+  const [dims, setDims] = useState<Dims>({ w: 0, h: 0 });
   const [vis, setVis] = useState<Visible | null>(null);
   const [boxes, setBoxes] = useState<Record<string, Box>>({});
 
@@ -98,9 +99,9 @@ export function PhotoTags({ tags }: { tags: TagView[] }) {
   useLayoutEffect(() => {
     const el = root.current;
     if (!el) return;
-    const clip = el.parentElement?.parentElement; // the cropping window (overflow-clip)
+    const clip = el.closest('[data-clip]'); // the cropping window (overflow-clip)
     const measure = () => {
-      setSize(el.clientWidth);
+      setDims({ w: el.clientWidth, h: el.clientHeight });
       if (!clip) return;
       const r = el.getBoundingClientRect();
       const c = clip.getBoundingClientRect();
@@ -168,7 +169,7 @@ export function PhotoTags({ tags }: { tags: TagView[] }) {
   }, [active, revealAll, tags]);
 
   const follow = canHover && active && cursor ? { side: active, ...cursor } : null;
-  const placed = size > 0 && vis ? place(tags, boxes, size, vis, follow) : null;
+  const placed = dims.w > 0 && vis ? place(tags, boxes, dims, vis, follow) : null;
 
   return (
     <div
