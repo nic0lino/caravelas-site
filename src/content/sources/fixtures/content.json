@@ -127,13 +127,13 @@
         "uk": "Турбота про самопочуття"
       },
       "text": {
-        "pt": "Treinamos para a vida, não para o pódio. Cada treino é adaptado para que saia da box melhor do que entrou.",
-        "en": "We train for life, not for the podium. Every workout is adapted so you leave the box better than you came in.",
-        "es": "Entrenamos para la vida, no para el podio. Cada entrenamiento se adapta para que salgas del box mejor de como entraste.",
-        "fr": "Nous nous entraînons pour la vie, pas pour le podium. Chaque séance est adaptée pour que vous sortiez de la box en meilleure forme qu’en entrant.",
-        "de": "Wir trainieren fürs Leben, nicht für das Podest. Jedes Training wird angepasst, damit Sie die Box besser verlassen, als Sie sie betreten haben.",
-        "ru": "Мы тренируемся для жизни, а не для пьедестала. Каждая тренировка адаптируется так, чтобы вы уходили из бокса в лучшей форме, чем пришли.",
-        "uk": "Ми тренуємося для життя, а не для п’єдесталу. Кожне тренування адаптоване так, щоб ви йшли з боксу в кращій формі, ніж прийшли."
+        "pt": "Treinamos para a vida, não para o pódio. Saia da box melhor do que entrou.",
+        "en": "We train for life, not for the podium. Leave the box better than you came in.",
+        "es": "Entrenamos para la vida, no para el podio. Sal del box mejor de como entraste.",
+        "fr": "On s’entraîne pour la vie, pas pour le podium. Sortez de la box plus fort.",
+        "de": "Wir trainieren fürs Leben, nicht fürs Podest. Gehen Sie besser, als Sie kamen.",
+        "ru": "Мы тренируемся для жизни, а не для пьедестала. Уходите сильнее.",
+        "uk": "Ми тренуємося для життя, а не для п’єдесталу. Йдіть сильнішими."
       },
       "order": 1
     },
@@ -150,13 +150,13 @@
         "uk": "Досвідчена команда"
       },
       "text": {
-        "pt": "Mais de 30 anos de experiência somados. Coaches com credencial CrossFit Level 2 (CF-L2), atentos à sua técnica em cada repetição.",
-        "en": "Over 30 years of combined experience. Coaches with CrossFit Level 2 (CF-L2) credentials, watching your technique on every rep.",
-        "es": "Más de 30 años de experiencia combinada. Coaches con credencial CrossFit Level 2 (CF-L2), atentos a tu técnica en cada repetición.",
-        "fr": "Plus de 30 ans d’expérience cumulée. Des coachs certifiés CrossFit Level 2 (CF-L2), attentifs à votre technique à chaque répétition.",
-        "de": "Über 30 Jahre gemeinsame Erfahrung. Coaches mit CrossFit-Level-2-Zertifikat (CF-L2), die bei jeder Wiederholung auf Ihre Technik achten.",
-        "ru": "Более 30 лет совместного опыта. Тренеры с сертификатом CrossFit Level 2 (CF-L2) следят за вашей техникой в каждом повторении.",
-        "uk": "Понад 30 років спільного досвіду. Тренери з сертифікатом CrossFit Level 2 (CF-L2) стежать за вашою технікою в кожному повторенні."
+        "pt": "Mais de 30 anos de experiência somados. Coaches certificados CrossFit Level 2.",
+        "en": "Over 30 years of combined experience. CrossFit Level 2 certified coaches.",
+        "es": "Más de 30 años de experiencia sumada. Coaches certificados CrossFit Level 2.",
+        "fr": "Plus de 30 ans d’expérience cumulée. Des coachs certifiés CrossFit Level 2.",
+        "de": "Über 30 Jahre gemeinsame Erfahrung. Coaches mit CrossFit-Level-2-Zertifikat.",
+        "ru": "Более 30 лет общего опыта. Тренеры с сертификатом CrossFit Level 2.",
+        "uk": "Понад 30 років досвіду. Тренери із сертифікатом CrossFit Level 2."
       },
       "order": 2
     },
@@ -173,13 +173,13 @@
         "uk": "Усі на борту"
       },
       "text": {
-        "pt": "Aulas em português e inglês. Chegou a Lisboa há uma semana ou há trinta anos, aqui faz parte da tripulação desde o primeiro treino.",
-        "en": "Classes in Portuguese and English. Whether you arrived in Lisbon a week or thirty years ago, you are part of the crew from your first session.",
-        "es": "Clases en portugués e inglés. Hayas llegado a Lisboa hace una semana o hace treinta años, aquí formas parte de la tripulación desde el primer entrenamiento.",
-        "fr": "Cours en portugais et en anglais. Que vous soyez arrivé à Lisbonne il y a une semaine ou il y a trente ans, vous faites partie de l’équipage dès la première séance.",
-        "de": "Kurse auf Portugiesisch und Englisch. Ob Sie vor einer Woche oder vor dreißig Jahren in Lissabon angekommen sind – ab dem ersten Training gehören Sie zur Crew.",
-        "ru": "Занятия на португальском и английском. Приехали в Лиссабон неделю или тридцать лет назад — с первой тренировки вы часть команды.",
-        "uk": "Заняття португальською та англійською. Приїхали до Лісабона тиждень чи тридцять років тому — з першого тренування ви частина команди."
+        "pt": "Aulas em português e inglês. Novo ou veterano, aqui faz parte da tripulação.",
+        "en": "Classes in Portuguese and English. New or veteran, you are part of the crew.",
+        "es": "Clases en portugués e inglés. Nuevo o veterano, eres parte de la tripulación.",
+        "fr": "Cours en portugais et anglais. Nouveau ou non, vous êtes dans l’équipage.",
+        "de": "Kurse auf Portugiesisch und Englisch. Ab Tag eins gehören Sie zur Crew.",
+        "ru": "Занятия на португальском и английском. Вы — часть команды.",
+        "uk": "Заняття португальською та англійською. Ви — частина команди."
       },
       "order": 3
     },
@@ -196,13 +196,13 @@
         "uk": "Готові та екіпіровані"
       },
       "text": {
-        "pt": "Tudo o que precisa para treino CrossFit® e treino híbrido: Rig, barras olímpicas, remos, bikes.... É só aparecer.",
-        "en": "Everything you need for CrossFit® and hybrid training: rig, Olympic barbells, rowers, bikes… Just show up.",
-        "es": "Todo lo que necesitas para entrenar CrossFit® y entrenamiento híbrido: rig, barras olímpicas, remos, bikes… Solo tienes que venir.",
-        "fr": "Tout ce qu’il faut pour le CrossFit® et l’entraînement hybride : rig, barres olympiques, rameurs, vélos… Il ne reste qu’à venir.",
-        "de": "Alles, was Sie für CrossFit® und Hybrid-Training brauchen: Rig, Langhanteln, Rudergeräte, Bikes … Sie müssen nur kommen.",
-        "ru": "Всё необходимое для кроссфита® и гибридных тренировок: риг, олимпийские штанги, гребные тренажёры, байки… Вам остаётся только прийти.",
-        "uk": "Усе необхідне для кросфіту® та гібридних тренувань: риг, олімпійські штанги, гребні тренажери, байки… Вам лишається тільки прийти."
+        "pt": "Rig, barras, remos e bikes: tudo o que precisa para treinar. É só aparecer.",
+        "en": "Rig, barbells, rowers and bikes: everything you need to train. Just show up.",
+        "es": "Rig, barras olímpicas, remos y bikes: todo para entrenar. Solo tienes que venir.",
+        "fr": "Rig, barres, rameurs et vélos : tout pour vous entraîner. Il suffit de venir.",
+        "de": "Rig, Langhanteln, Rudergeräte und Bikes: alles zum Trainieren. Einfach kommen.",
+        "ru": "Риг, штанги, гребные тренажёры, байки: всё для тренировок. Приходите.",
+        "uk": "Риг, штанги, гребні тренажери, байки: усе для тренувань. Приходьте."
       },
       "order": 4
     }
