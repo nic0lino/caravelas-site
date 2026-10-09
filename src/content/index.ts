@@ -1,6 +1,7 @@
 import 'server-only';
 import { SiteContent } from './schema';
 import { loadFixture } from './sources/fixture';
+import { loadSheets } from './sources/sheets';
 
 /**
  * The only entry point the UI uses. Returns a validated SiteContent; localized
@@ -13,8 +14,7 @@ export async function getSiteContent(): Promise<SiteContent> {
     case 'fixture':
       return loadFixture();
     case 'sheets':
-      // Juanpi: implement in sources/sheets.ts, return SiteContent.parse(...)
-      throw new Error('CONTENT_SOURCE=sheets: adapter not implemented yet');
+      return loadSheets();
     default:
       throw new Error(`Unknown CONTENT_SOURCE "${source}"`);
   }
