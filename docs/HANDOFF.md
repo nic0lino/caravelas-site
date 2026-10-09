@@ -16,6 +16,12 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 
 - Policies: footer + cookie notice link to the existing Wix policy pages (`config.privacyHref/cookiesHref`). Proposed Google Maps addendum + date + controller data for the gym to validate: `docs/COOKIES_ADDENDUM.md`. Fixture email/WhatsApp now come from the old site's policy pages (to confirm).
 
+## Deploy (2026-10-09)
+- Repo: https://github.com/nic0lino/caravelas-site (public). Vercel project `caravelas-site` (scope `nicods9302-4882s-projects`), GitHub-connected: every push to `main` deploys to production. Env vars are set in Vercel (Production only), incl. a random `REVALIDATE_SECRET`.
+- Live: https://caravelas-site.vercel.app/testsite/caravelas and https://nicolino.zip/testsite/caravelas (rewrite in the portfolio's `vercel.json` + `testsite` excluded from its `proxy.ts` matcher; the portfolio is deployed with `vercel deploy --prod`, it has no git remote).
+- Behind that rewrite Next's segment prefetches 404, so header/language `Link`s use `prefetch={false}`.
+- Hobby plan: Juanpi can't be added to the Vercel project; to work on it he needs the `cravel` team (Pro) or his own Vercel + GitHub collaborator access.
+
 ## Next steps
 - Compare against Figma at 1728 / 440 widths (only checked by eye at 1200, 599 and 375); Playwright smoke test; Lighthouse on the deployed URL (not run).
 - Hero: separate portrait video crop for mobile if needed; the source video is a split-screen of two clips, so check the crop on phones. Poster is a plain frame, not a pre-rendered shader frame.

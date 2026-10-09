@@ -71,6 +71,7 @@ export function LangSwitch({ lang, label, className = '' }: { lang: Lang; label:
               ) : (
                 <Link
                   href={`${langPath(l)}${hash}`}
+                  prefetch={false} // segment prefetches 404 when the site is mounted behind nicolino.zip's rewrite
                   lang={l}
                   hrefLang={l}
                   onClick={() => { remember(l); setOpen(false); }}

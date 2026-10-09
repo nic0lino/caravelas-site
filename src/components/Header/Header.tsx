@@ -31,7 +31,7 @@ export function Header({ lang, t, config }: { lang: Lang; t: UiStrings; config: 
   return (
     <header className="bg-moss-900">
       <div className="mx-auto flex max-w-[1248px] items-center justify-between gap-4 px-5 py-5 md:px-6 md:py-10 xl:gap-6">
-        <Link href={langPath(lang)} aria-label="CrossFit Caravelas"><Logo /></Link>
+        <Link href={langPath(lang)} prefetch={false} aria-label="CrossFit Caravelas"><Logo /></Link>
         <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex xl:gap-5">
           {links.map((l) => (
             <a key={l.href} href={l.href} className="whitespace-nowrap px-2.5 py-2.5 text-base font-light uppercase text-white underline-offset-[6px] hover:text-yellow hover:underline xl:px-5 xl:text-xl">{l.label}</a>
