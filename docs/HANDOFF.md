@@ -14,7 +14,7 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 - Hero title is never translated. Map: real Google Maps iframe (lazy), loaded as soon as the visitor accepts the cookie notice (the only third-party cookies on the site; choice in localStorage, reopenable from the footer; until then a placeholder with an "open in Google Maps" link). **Before launch:** write the real Cookie/Privacy policy pages the footer links to.
 - Inter Bold is used for the schedule section title (as in Figma).
 
-- Policies: footer + cookie notice link to the existing Wix policy pages (`config.privacyHref/cookiesHref`). Proposed Google Maps addendum + date + controller data for the gym to validate: `docs/COOKIES_ADDENDUM.md`. Fixture email/WhatsApp now come from the old site's policy pages (to confirm).
+- Legal: **decision (owner): use the old site's policy pages as they are** — footer + cookie notice link to `https://www.caravelas.fit/teaser-politica-de-privacidade` and `.../copia-politica-de-privacidade` (`config.privacyHref/cookiesHref`). `docs/COOKIES_ADDENDUM.md` (Google Maps paragraph) is NOT used for now. Known limits: those pages are Wix pages that disappear with the old site (SPEC §3.5 step 4 — redirect or port them before closing it), they don't mention Google Maps, and they are Portuguese only.
 
 ## Deploy (2026-10-09)
 - Repo: https://github.com/nic0lino/caravelas-site (public). Vercel project `caravelas-site` (scope `nicods9302-4882s-projects`), GitHub-connected: every push to `main` deploys to production. Env vars are set in Vercel (Production only), incl. a random `REVALIDATE_SECRET`.

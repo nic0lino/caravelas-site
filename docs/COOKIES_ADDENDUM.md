@@ -1,5 +1,7 @@
 # Proposta de adenda — Política de Cookies (Google Maps)
 
+> **Estado: NÃO USADA por agora.** Decisão do dono: usar as páginas legais do site antigo tal como estão. Fica guardada para quando se migrar as políticas.
+
 > **RASCUNHO para validação do ginásio / assessor jurídico.** Não é aconselhamento jurídico.
 > Contexto: as páginas atuais (Wix: `teaser-politica-de-privacidade`, `copia-politica-de-privacidade`) descrevem cookies de forma genérica,
 > não nomeiam fornecedores nem durações, não mencionam o Google Maps e não têm data de atualização.
