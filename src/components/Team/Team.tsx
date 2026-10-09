@@ -63,11 +63,11 @@ export function Team({ lang, t, coaches, config }: { lang: Lang; t: UiStrings; c
           </div>
           </div>
 
-          {/* the coaches, cut out. Mobile: their heads rise 40px above the window, over the section above, and are cut at
+          {/* the coaches, cut out. Mobile: optically centred (the alpha centroid is at 46% of the image and its extent midpoint at 51%, so 49% sits on the window's centre). Mobile: their heads rise 40px above the window, over the section above, and are cut at
               the window's bottom; desktop: they stand on the card's floor. */}
           <div data-clip className="absolute inset-x-0 bottom-0 top-[-40px] overflow-clip lg:top-0">
             <div
-              className="absolute left-[3.18%] top-0 w-[74.55%] lg:bottom-0 lg:left-[calc(var(--col)+541px)] lg:top-auto lg:w-[min(628px,calc(100%-var(--col)-541px))]"
+              className="absolute left-[13.47%] top-0 w-[74.55%] lg:bottom-0 lg:left-[calc(var(--col)+541px)] lg:top-auto lg:w-[min(628px,calc(100%-var(--col)-541px))]"
               style={{ ['--col' as string]: COL }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
