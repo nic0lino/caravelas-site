@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useRef, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import type { UiStrings } from '@/i18n';
 
@@ -23,6 +23,7 @@ export const useConsent = () => useContext(ConsentContext);
 export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; cookiesHref: string; children: ReactNode }) {
   const [status, setStatus] = useState<Status>('loading');
   const [open, setOpen] = useState(false);
+  const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let saved: string | null = null;
@@ -30,6 +31,18 @@ export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; co
     if (saved === 'accepted' || saved === 'declined') setStatus(saved);
     else { setStatus('unset'); setOpen(true); }
   }, []);
+
+  // expose the bar's height (CSS var) so the floating CTA sits above it
+  useEffect(() => {
+    const root = document.documentElement;
+    const el = bar.current;
+    if (!open || !el) { root.style.setProperty('--consent-h', '0px'); return; }
+    const set = () => root.style.setProperty('--consent-h', `${el.offsetHeight}px`);
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => { ro.disconnect(); root.style.setProperty('--consent-h', '0px'); };
+  }, [open]);
 
   const save = useCallback((s: 'accepted' | 'declined') => {
     try { localStorage.setItem(KEY, s); } catch {}
@@ -47,7 +60,7 @@ export function ConsentProvider({ t, cookiesHref, children }: { t: UiStrings; co
       {children}
       {open && (
         // slim bar glued to the bottom edge of the window (like the original site's), not a floating card
-        <div role="region" aria-label={t.cookies.label} className="fixed inset-x-0 bottom-0 z-[60] border-t border-[#95be35] bg-ink text-white">
+        <div ref={bar} role="region" aria-label={t.cookies.label} className="fixed inset-x-0 bottom-0 z-[60] border-t border-[#95be35] bg-ink text-white">
           <div className="mx-auto flex max-w-[1248px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-1.5 md:px-6">
             <p className="min-w-0 flex-1 basis-[24rem] text-2xs">
               {t.cookies.text}{' '}

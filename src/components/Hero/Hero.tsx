@@ -2,6 +2,7 @@ import type { Feature, SiteConfig } from '@/content/schema';
 import { localize, type Lang } from '@/content/select';
 import type { UiStrings } from '@/i18n';
 import { LangSwitch } from '../Header/LangSwitch';
+import { CtaButton } from './CtaButton';
 import { FeatureRotator } from './FeatureRotator';
 import { HeroBackground } from './HeroBackground';
 
@@ -31,15 +32,7 @@ export function Hero({ lang, t, config, features }: { lang: Lang; t: UiStrings; 
             </h1>
             <FeatureRotator features={views} label={t.features.label} />
           </div>
-          <a
-            href={config.ctaHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-auto mt-[87px] flex min-h-[43px] w-[285px] max-w-full shrink-0 flex-wrap items-center justify-center gap-x-2.5 rounded-[10px] border border-[#66793a] bg-gradient-to-b from-[#99c82a] from-[66.4%] to-[#4b6215] to-[145%] px-4 py-2.5 text-center text-sm text-moss-900 drop-shadow-[4px_4px_2.85px_#304400] transition hover:-translate-y-px hover:brightness-110 active:translate-y-px md:mx-0 md:mt-10 md:min-h-[70px] md:w-[402px] md:px-6 md:text-lg lg:mt-0 md:rounded-2xl "
-          >
-            <span className="font-medium">{localize(config.ctaLabel, lang)}</span>
-            <span className="font-black">{localize(config.ctaBadge, lang)}</span>
-          </a>
+          <CtaButton href={config.ctaHref} label={localize(config.ctaLabel, lang)} badge={localize(config.ctaBadge, lang)} />
         </div>
       </div>
     </section>
