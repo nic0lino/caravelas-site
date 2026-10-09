@@ -6,7 +6,7 @@ Phases 0–3 first pass done with fixture content; Phase 4 (Sheets) is Juanpi's.
 - Hero: poster → lazy WebGL2 zigzag refraction on `public/video/hero.{webm,mp4}` (≈2 MB each, 960×540, 24 fps), with green tint overlays. Falls back to the poster on no WebGL2 / reduced motion / saveData / context lost. Pauses off-screen and on hidden tab. Shader params are in `src/components/Hero/refraction.ts` (tuned by eye against Figma `1:10`, not pixel-matched).
 - Marquee, feature rotator (4 real features from Figma), schedule (table + day tabs, "today" in Europe/Lisbon), price band with squiggle, Capitães, footer, mobile menu, PT `/` + EN `/en`, JSON-LD, OG image, `/status`, `/api/revalidate`.
 - Assets from Figma in `public/assets/` (logo, feature icons, team photo, map, CrossFit logos, squiggles). Raw downloads and reference screenshots are in `source/` (git-ignored).
-- Fixture content mirrors the Figma desktop frame. Placeholders: RegyBox CTA link, WhatsApp, email, Instagram/Facebook URLs, footer opening hours, JSON-LD geo.
+- Fixture content mirrors the Figma desktop frame. Placeholders: RegyBox CTA link, Instagram/Facebook URLs of the gym, footer opening hours, JSON-LD geo. Confirmed: WhatsApp +351 912 849 143; emails feu.ferreira@ and ana.lima@caravelas.fit.
 
 ## Update — fidelity pass + languages (2026-10-09)
 - Layout re-done from Figma `get_design_context` per section (colors and sizes are the Figma values; text sizes follow Figma, e.g. cell names 12px, coach line 8px, bios 12px — deliberate, the user asked to follow Figma over the legibility deviations in SPEC §12.1). Geometry measured at 1728px matches Figma: header 147, hero 667, column 1000, table 143/32/43, price items at 303/485/683/881, team 502 with the 931px photo at x=864, map 374×301.

@@ -38,8 +38,8 @@ export function Footer({ t, config, lang }: { t: UiStrings; config: SiteConfig; 
                   {config.whatsapp && (
                     <a href={`https://wa.me/${config.whatsapp.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className={btn}><WhatsApp className="h-4 w-4" />{t.contact.whatsapp}</a>
                   )}
-                  {config.email && (
-                    <a href={`mailto:${config.email}`} className={btn}><Mail className="h-4 w-4" />{t.contact.email}</a>
+                  {config.emails && config.emails.length > 0 && (
+                    <a href={`mailto:${config.emails.join(',')}`} className={btn}><Mail className="h-4 w-4" />{t.contact.email}</a>
                   )}
                 </div>
               </div>

@@ -57,12 +57,15 @@
       },
       "sunday": null
     },
-    "email": "feu.ferreira@caravelas.fit",
     "whatsapp": "+351912849143",
     "instagram": "https://www.instagram.com/crossfitcaravelas",
     "facebook": "https://www.facebook.com/crossfitcaravelas",
     "privacyHref": "https://www.caravelas.fit/teaser-politica-de-privacidade",
-    "cookiesHref": "https://www.caravelas.fit/copia-politica-de-privacidade"
+    "cookiesHref": "https://www.caravelas.fit/copia-politica-de-privacidade",
+    "emails": [
+      "feu.ferreira@caravelas.fit",
+      "ana.lima@caravelas.fit"
+    ]
   },
   "marquee": [
     {
@@ -608,8 +611,7 @@
     "warnings": [
       "fixture: marquesina \"m2\" sem tradução EN (intencional — testa o fallback para PT)",
       "fixture: marquesina \"m3\" terminou em 2025-12-31 (intencional — testa o filtro por datas)",
-      "fixture: biografias dos capitães só em PT/EN (as outras línguas usam o fallback en → pt)",
-      "fixture: email (feu.ferreira@) e WhatsApp (+351 912 849 143) vêm das páginas de política do site antigo — confirmar com o ginásio qual é o contacto principal e se o número tem WhatsApp"
+      "fixture: biografias dos capitães só em PT/EN (as outras línguas usam o fallback en → pt)"
     ]
   }
 }

@@ -82,7 +82,7 @@ export const SiteConfig = z.object({
   privacyHref: z.string().url().optional(), // Privacy Policy page
   cookiesHref: z.string().url().optional(), // Cookie Policy page
   openingHours: OpeningHours,
-  email: z.string().email().optional(),
+  emails: z.array(z.string().email()).optional(), // the Email button writes to all of them
   whatsapp: z.string().regex(/^\+\d{8,15}$/).optional(), // E.164
   instagram: z.string().url().optional(),
   facebook: z.string().url().optional(),
