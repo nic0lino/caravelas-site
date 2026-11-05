@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { ScheduleEditor } from '@/components/admin/ScheduleEditor';
 import { AnnouncementsEditor } from '@/components/admin/AnnouncementsEditor';
+import { Logo } from '@/components/Logo';
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -76,7 +77,7 @@ export function AdminPanel({ initialContent, initialVersions, email, demo = fals
   return <div className="mx-auto max-w-7xl space-y-8">
     {demo && <div role="note" className="rounded-xl border border-yellow/40 bg-yellow/10 px-5 py-4 text-sm text-yellow"><strong className="mr-2">Prototipo interactivo.</strong>Puedes probar todos los campos. Los cambios de esta vista no se guardan ni afectan al sitio público.</div>}
     <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-7">
-      <div className="flex items-center gap-4"><div className="flex size-12 items-center justify-center rounded-xl bg-yellow text-2xl font-black text-moss-950">C</div><div><p className="text-xs font-bold uppercase tracking-[0.2em] text-lime-400">{demo ? 'Vista previa' : 'Uso interno'}</p><h1 className="text-xl font-black uppercase tracking-tight text-yellow">Contenido de Caravelas</h1><p className="mt-1 text-sm text-muted-foreground">{demo ? 'Explora el futuro panel y prueba cómo se editará cada sección.' : 'Edita lo esencial y guarda cada sección para publicarla.'}</p></div></div>
+      <div className="flex items-center gap-5"><Logo className="h-auto w-[100px] shrink-0 sm:w-[130px]" /><h1 className="text-xl font-black uppercase tracking-tight text-yellow">Web Admin Dashboard</h1></div>
       <div className="flex items-center gap-3">{demo ? <Button variant="ghost" onClick={resetDemo}><RotateCcw /> Reiniciar</Button> : <Badge variant="secondary" className="max-w-44 truncate">{email}</Badge>}<Button variant="outline" asChild><a href={`${base}/`} target="_blank" rel="noopener noreferrer">Ver sitio <ExternalLink /></a></Button>{!demo && <form action={`${base}/api/admin/auth/logout`} method="post"><Button variant="ghost" type="submit">Salir</Button></form>}</div>
     </header>
     <Tabs value={active} onValueChange={value => { setActive(value as Section); setMessage(''); }} className="gap-5">
