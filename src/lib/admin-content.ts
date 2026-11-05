@@ -10,7 +10,7 @@ export const Edits = z.discriminatedUnion('section', [
   z.object({ section: z.literal('schedule'), version: z.string(), items: z.array(z.object({ id: z.string(), day: Weekday, time: Time, enabled: z.boolean(), kind: ClassKind, name: z.string(), coach: z.string() })).min(1).max(200) }),
   z.object({ section: z.literal('prices'), version: z.string(), items: z.array(z.object({ id: z.string(), label: text, priceEUR: z.number().positive(), featured: z.boolean() })).min(1).max(50) }),
   z.object({ section: z.literal('coaches'), version: z.string(), items: z.array(z.object({ id: z.string(), name: text, bio: text, instagram: optionalUrl })).min(1).max(20) }),
-  z.object({ section: z.literal('config'), version: z.string(), data: z.object({ heroTitle: text, street: text, postalCode: text, city: text, mapsHref: z.url(), weekdaysOpen: Time.nullable(), weekdaysClose: Time.nullable(), saturdayOpen: Time.nullable(), saturdayClose: Time.nullable(), sundayOpen: Time.nullable(), sundayClose: Time.nullable(), emails: z.string(), whatsapp: z.string(), instagram: optionalUrl, facebook: optionalUrl }) }),
+  z.object({ section: z.literal('config'), version: z.string(), data: z.object({ heroTitle: text, marqueeEnabled: z.boolean(), marquee: z.array(z.object({ id: z.string(), highlight: text, text: z.string(), href: optionalUrl, startsOn: z.union([z.literal(''), z.iso.date()]), endsOn: z.union([z.literal(''), z.iso.date()]) })).max(20), ctaLabel: text, ctaBadge: text, street: text, postalCode: text, city: text, mapsHref: z.url(), weekdaysOpen: Time.nullable(), weekdaysClose: Time.nullable(), saturdayOpen: Time.nullable(), saturdayClose: Time.nullable(), sundayOpen: Time.nullable(), sundayClose: Time.nullable(), emails: z.string(), whatsapp: z.string(), instagram: optionalUrl, facebook: optionalUrl }) }),
 ]);
 export type AdminEdits = z.infer<typeof Edits>;
 export type Section = AdminEdits['section'];
@@ -57,7 +57,7 @@ export async function readAdminContent() {
     md5((content -> 'schedule')::text) AS schedule_version,
     md5((content -> 'prices')::text) AS prices_version,
     md5((content -> 'coaches')::text) AS coaches_version,
-    md5((content -> 'config')::text) AS config_version
+    md5((content -> 'config')::text || (content -> 'marquee')::text) AS config_version
     FROM site_content WHERE id = 1`;
   const row = rows[0]!;
   return { content: fromRow(row.content), versions: { schedule: row.schedule_version as string, prices: row.prices_version as string, coaches: row.coaches_version as string, config: row.config_version as string } };
@@ -92,6 +92,16 @@ export function applyEdits(current: Content, edit: AdminEdits): Content {
       return open && close ? { opens: open, closes: close } : null;
     };
     next.config.heroTitle.pt = d.heroTitle;
+    if ([d.ctaLabel, d.ctaBadge].join(' ').length > 33) throw new Error('El texto completo del botón no puede superar 33 caracteres.');
+    next.config.ctaLabel.pt = d.ctaLabel;
+    next.config.ctaBadge.pt = d.ctaBadge;
+    next.config.marqueeEnabled = d.marqueeEnabled;
+    const existingMarquee = new Map(current.marquee.map(item => [item.id, item]));
+    next.marquee = d.marquee.map((item, index) => {
+      if (item.startsOn && item.endsOn && item.endsOn < item.startsOn) throw new Error('La fecha final de un aviso debe ser posterior a la inicial.');
+      const old = existingMarquee.get(item.id);
+      return { ...old, id: item.id, highlight: { ...old?.highlight, pt: item.highlight }, text: item.text ? { ...old?.text, pt: item.text } : undefined, href: item.href || undefined, startsOn: item.startsOn || undefined, endsOn: item.endsOn || undefined, order: index + 1 };
+    });
     next.config.address = { street: d.street, postalCode: d.postalCode, city: d.city };
     next.config.mapsHref = d.mapsHref;
     next.config.openingHours = { weekdays: hours(d.weekdaysOpen, d.weekdaysClose), saturday: hours(d.saturdayOpen, d.saturdayClose), sunday: hours(d.sundayOpen, d.sundayClose) };
@@ -109,11 +119,17 @@ export async function saveAdminContent(email: string, edit: AdminEdits) {
   const next = applyEdits(snapshot.content, edit);
   const sectionJson = JSON.stringify(stored(next)[edit.section]);
   const sql = db();
-  const rows = await sql`UPDATE site_content SET
-    content = jsonb_set(content, ARRAY[${edit.section}], ${sectionJson}::jsonb),
-    updated_at = now(), updated_by = ${email}
-    WHERE id = 1 AND md5((content -> ${edit.section})::text) = ${edit.version}
-    RETURNING content`;
+  const rows = edit.section === 'config'
+    ? await sql`UPDATE site_content SET
+      content = jsonb_set(jsonb_set(content, '{config}', ${sectionJson}::jsonb), '{marquee}', ${JSON.stringify(next.marquee)}::jsonb),
+      updated_at = now(), updated_by = ${email}
+      WHERE id = 1 AND md5((content -> 'config')::text || (content -> 'marquee')::text) = ${edit.version}
+      RETURNING content`
+    : await sql`UPDATE site_content SET
+      content = jsonb_set(content, ARRAY[${edit.section}], ${sectionJson}::jsonb),
+      updated_at = now(), updated_by = ${email}
+      WHERE id = 1 AND md5((content -> ${edit.section})::text) = ${edit.version}
+      RETURNING content`;
   if (!rows.length) throw new Error('Esta sección cambió desde que la abriste. Recarga antes de guardar.');
   return fromRow(rows[0]!.content);
 }

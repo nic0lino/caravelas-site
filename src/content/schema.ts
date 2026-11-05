@@ -72,6 +72,7 @@ export const OpeningHours = z.object({
 
 export const SiteConfig = z.object({
   heroTitle: Localized,
+  marqueeEnabled: z.boolean().optional(),
   ctaLabel: Localized, // "Agende a aula experimental"
   ctaBadge: Localized, // "GRÁTIS"
   ctaHref: z.string().url(), // RegyBox trial booking link
