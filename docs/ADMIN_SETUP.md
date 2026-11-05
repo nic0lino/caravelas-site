@@ -2,6 +2,8 @@
 
 El panel está en `/admin` (en el dominio de prueba: `https://nicolino.zip/testsite/caravelas/admin`). Edita clases y coaches, equipo, precios, título, ubicación, horario de apertura y contacto. El sitio público lee los cambios desde una única base de datos Postgres.
 
+Para revisar el diseño antes de activar Google, abre `/admin/prototipo`. Esta vista usa una copia inicial de los datos, permite probar todos los campos y no guarda ningún cambio ni consulta la base de datos.
+
 ## Base de datos
 
 Neon Postgres ya está conectado al proyecto Vercel y proporciona `DATABASE_URL`. Producción usa `CONTENT_SOURCE=db` y la primera lectura creó la tabla `site_content` con una copia validada de la [hoja compartida](https://docs.google.com/spreadsheets/d/1CNeCzSB0iNEcwi0OME1E7v2DqRFZ3Dg6QWi2xPEVCKY/edit) recibida el 5 de noviembre de 2026 (47 clases, 4 precios y 2 coaches). La base de desarrollo se inicializó con `scripts/seed-admin-db.mjs`; el script es seguro de repetir porque no sobrescribe los cambios del panel.

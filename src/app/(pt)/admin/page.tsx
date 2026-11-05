@@ -31,6 +31,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             {params.error === 'login' && <p role="alert" className="rounded-lg border border-yellow/40 bg-yellow/10 p-3 text-sm">No se pudo completar el inicio de sesión. Inténtalo de nuevo.</p>}
             {dataError && <p role="alert" className="rounded-lg border border-yellow/40 bg-yellow/10 p-3 text-sm">{dataError}</p>}
             {ready ? <Button asChild size="lg" className="w-full font-bold"><a href={adminPath('/api/admin/auth/start')}>Continuar con Google</a></Button> : <Button size="lg" className="w-full font-bold" disabled>Continuar con Google</Button>}
+            <Button variant="outline" asChild className="w-full"><a href={adminPath('/admin/prototipo')}>Ver prototipo del panel</a></Button>
             <a className="block text-center text-sm text-muted-foreground underline underline-offset-4" href={adminPath('/')}>Volver al sitio</a>
           </CardContent>
         </Card>
