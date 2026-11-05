@@ -35,7 +35,6 @@ export function ScheduleEditor({ slots, onChange }: { slots: ScheduleSlot[]; onC
 
   function toggle(day: Weekday, time: string, enabled: boolean) {
     setSelected({ day, time });
-    setEditorOpen(true);
     setError('');
     const slot = slotAt(day, time);
     if (slot) updateSlot(slot.id, { enabled });
@@ -58,17 +57,14 @@ export function ScheduleEditor({ slots, onChange }: { slots: ScheduleSlot[]; onC
     const enabled = !!slot && slot.enabled !== false;
     const chosen = selected.day === day && selected.time === time;
     const name = enabled ? slot.name?.pt || kindLabel[slot.kind] : 'Vacío';
-    return <div className={`flex min-h-16 items-center gap-2 px-2 py-2 ${enabled ? slot.kind === 'crossfit' || slot.kind === 'team_wod' ? 'bg-[#304400]' : 'bg-[rgba(41,56,5,0.79)]' : 'bg-[#232e07]'} ${chosen ? 'ring-2 ring-inset ring-yellow' : ''}`}>
-      <button type="button" aria-pressed={chosen} aria-label={`Editar ${days.find(([d]) => d === day)?.[1]} ${time}`} onClick={() => { setSelected({ day, time }); setEditorOpen(true); }} className="min-w-0 flex-1 text-left text-sm text-white focus-visible:outline-yellow">
+    return <button type="button" aria-label={`Editar ${days.find(([d]) => d === day)?.[1]} ${time}`} onClick={() => { setSelected({ day, time }); setEditorOpen(true); }} className={`flex min-h-16 w-full flex-col justify-center px-3 py-2 text-left text-sm text-white focus-visible:outline-yellow ${enabled ? slot.kind === 'crossfit' || slot.kind === 'team_wod' ? 'bg-[#304400]' : 'bg-[rgba(41,56,5,0.79)]' : 'bg-[#232e07]'} ${chosen ? 'ring-2 ring-inset ring-yellow' : ''}`}>
         <span className={`block truncate ${enabled ? 'font-semibold' : 'text-white/45'}`}>{name}</span>
         {enabled && slot.coach && <span className="block truncate text-xs text-white/65">{slot.coach}</span>}
-      </button>
-      <Switch checked={enabled} onCheckedChange={checked => toggle(day, time, checked)} aria-label={`${enabled ? 'Ocultar' : 'Mostrar'} clase del ${days.find(([d]) => d === day)?.[1]} a las ${time}`} className="shrink-0" />
-    </div>;
+    </button>;
   }
 
   return <Card>
-    <CardHeader><CardTitle>Horarios de clases</CardTitle><CardDescription>Selecciona una casilla para editarla. El interruptor muestra u oculta la clase en la web; los datos de una clase oculta se conservan.</CardDescription></CardHeader>
+    <CardHeader><CardTitle>Horarios de clases</CardTitle><CardDescription>Haz clic en una casilla para abrir sus opciones. Desde allí puedes mostrar u ocultar la clase y editar sus datos.</CardDescription></CardHeader>
     <CardContent className="space-y-6">
       <div className="hidden overflow-x-auto rounded-xl border border-[#95be35]/50 md:block">
         <table className="w-full min-w-[850px] table-fixed border-collapse text-center">
