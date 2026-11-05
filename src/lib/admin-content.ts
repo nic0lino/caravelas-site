@@ -7,7 +7,7 @@ import { SiteContent, Weekday, Time, ClassKind, type SiteContent as Content } fr
 const text = z.string().trim().min(1);
 const optionalUrl = z.union([z.literal(''), z.url()]);
 export const Edits = z.discriminatedUnion('section', [
-  z.object({ section: z.literal('schedule'), version: z.string(), items: z.array(z.object({ id: z.string(), day: Weekday, time: Time, kind: ClassKind, name: z.string(), coach: z.string() })).min(1).max(200) }),
+  z.object({ section: z.literal('schedule'), version: z.string(), items: z.array(z.object({ id: z.string(), day: Weekday, time: Time, enabled: z.boolean(), kind: ClassKind, name: z.string(), coach: z.string() })).min(1).max(200) }),
   z.object({ section: z.literal('prices'), version: z.string(), items: z.array(z.object({ id: z.string(), label: text, priceEUR: z.number().positive(), featured: z.boolean() })).min(1).max(50) }),
   z.object({ section: z.literal('coaches'), version: z.string(), items: z.array(z.object({ id: z.string(), name: text, bio: text, instagram: optionalUrl })).min(1).max(20) }),
   z.object({ section: z.literal('config'), version: z.string(), data: z.object({ heroTitle: text, street: text, postalCode: text, city: text, mapsHref: z.url(), weekdaysOpen: Time.nullable(), weekdaysClose: Time.nullable(), saturdayOpen: Time.nullable(), saturdayClose: Time.nullable(), sundayOpen: Time.nullable(), sundayClose: Time.nullable(), emails: z.string(), whatsapp: z.string(), instagram: optionalUrl, facebook: optionalUrl }) }),
@@ -69,9 +69,9 @@ export function applyEdits(current: Content, edit: AdminEdits): Content {
     const existing = new Map(current.schedule.map(item => [item.id, item]));
     next.schedule = edit.items.map(item => {
       const old = existing.get(item.id);
-      return { ...old, id: item.id, day: item.day, time: item.time, kind: item.kind, name: item.name ? { ...old?.name, pt: item.name } : undefined, coach: item.coach || undefined };
+      return { ...old, id: item.id, day: item.day, time: item.time, enabled: item.enabled, kind: item.kind, name: item.name ? { ...old?.name, pt: item.name } : undefined, coach: item.coach || undefined };
     });
-    const duplicates = new Set(next.schedule.map(item => `${item.day}|${item.time}|${item.kind}|${item.name?.pt || ''}`));
+    const duplicates = new Set(next.schedule.map(item => `${item.day}|${item.time}`));
     if (duplicates.size !== next.schedule.length) throw new Error('Hay clases duplicadas en el mismo día y horario.');
   } else if (edit.section === 'prices') {
     const existing = new Map(current.prices.map(item => [item.id, item]));

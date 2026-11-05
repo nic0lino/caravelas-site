@@ -46,12 +46,13 @@ export interface ScheduleGrid {
 
 /** Rows = sorted unique times. Columns = Mon–Sat, plus Sun only if any Sunday slot exists. */
 export function buildScheduleGrid(slots: ScheduleSlot[]): ScheduleGrid {
-  const hasSunday = slots.some((s) => s.day === 'sun');
+  const hasSunday = slots.some((s) => s.day === 'sun' && s.enabled !== false);
   const days = hasSunday ? WEEKDAYS : WEEKDAYS.filter((d) => d !== 'sun');
   const times = [...new Set(slots.map((s) => s.time))].sort();
   const cells: ScheduleGrid['cells'] = {};
   for (const t of times) cells[t] = {};
   for (const s of slots) {
+    if (s.enabled === false) continue;
     const row = cells[s.time]!;
     (row[s.day] ??= []).push(s);
   }
@@ -60,7 +61,7 @@ export function buildScheduleGrid(slots: ScheduleSlot[]): ScheduleGrid {
 
 /** Slots for one day, ordered by time (mobile day-tabs list). */
 export function slotsForDay(slots: ScheduleSlot[], day: Weekday): ScheduleSlot[] {
-  return slots.filter((s) => s.day === day).sort((a, b) => a.time.localeCompare(b.time));
+  return slots.filter((s) => s.day === day && s.enabled !== false).sort((a, b) => a.time.localeCompare(b.time));
 }
 
 /** €20 for integers, €22,50 otherwise (design style, pt-PT decimal comma). */

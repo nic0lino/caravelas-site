@@ -3,6 +3,7 @@
 El panel está en `/admin` (en el dominio de prueba: `https://nicolino.zip/testsite/caravelas/admin`). Edita clases y coaches, equipo, precios, título, ubicación, horario de apertura y contacto. El sitio público lee los cambios desde una única base de datos Postgres.
 
 Para revisar el diseño antes de activar Google, abre `/admin/prototipo`. Esta vista usa una copia inicial de los datos, permite probar todos los campos y no guarda ningún cambio ni consulta la base de datos.
+El horario se edita desde la cuadrícula semanal: selecciona una casilla para abrir sus campos, o usa el interruptor para mostrarla u ocultarla. Una clase oculta conserva su tipo, nombre y coach para poder reactivarla.
 
 ## Base de datos
 

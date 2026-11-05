@@ -31,6 +31,7 @@ export const ScheduleSlot = z.object({
   id: z.string(),
   day: Weekday,
   time: Time,
+  enabled: z.boolean().optional(), // false keeps the slot editable while displaying an empty cell
   kind: ClassKind,
   name: Localized.optional(), // if absent, UI uses the default label for `kind`
   coach: z.string().optional(), // rendered as "Coach {coach}"; if absent, UI uses kind default
