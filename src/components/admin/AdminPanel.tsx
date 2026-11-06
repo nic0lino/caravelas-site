@@ -76,8 +76,8 @@ export function AdminPanel({ initialContent, initialVersions, email, demo = fals
 
   return <div className="mx-auto max-w-7xl space-y-8">
     {demo && <div role="note" className="rounded-xl border border-yellow/40 bg-yellow/10 px-5 py-4 text-sm text-yellow"><strong className="mr-2">Prototipo interactivo.</strong>Puedes probar todos los campos. Los cambios de esta vista no se guardan ni afectan al sitio público.</div>}
-    <header className="flex flex-wrap items-start justify-between gap-4">
-      <div className="flex items-center gap-5"><Logo className="h-auto w-[100px] shrink-0 sm:w-[130px]" /><h1 className="text-xl font-black uppercase tracking-tight text-yellow">Web Admin Dashboard</h1></div>
+    <header className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex items-center gap-4"><Logo className="h-auto w-[82px] shrink-0 sm:w-[108px]" /><h1 className="text-xl font-black uppercase tracking-tight text-yellow">Web Admin Dashboard</h1></div>
       <div className="flex items-center gap-3">{demo ? <Button variant="ghost" onClick={resetDemo}><RotateCcw /> Reiniciar</Button> : <Badge variant="secondary" className="max-w-44 truncate">{email}</Badge>}<Button variant="outline" asChild><a href={`${base}/`} target="_blank" rel="noopener noreferrer">Ver sitio <ExternalLink /></a></Button>{!demo && <form action={`${base}/api/admin/auth/logout`} method="post"><Button variant="ghost" type="submit">Salir</Button></form>}</div>
     </header>
     <Tabs value={active} onValueChange={value => { setActive(value as Section); setMessage(''); }} className="gap-5">
