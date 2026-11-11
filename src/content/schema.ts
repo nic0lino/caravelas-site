@@ -98,12 +98,33 @@ export const SiteContent = z.object({
   prices: z.array(PricePlan),
   coaches: z.array(Coach),
   meta: z.object({
-    source: z.enum(['fixture', 'sheets']),
+    source: z.enum(['fixture', 'sheets', 'db']),
     fetchedAt: z.string(),
     warnings: z.array(z.string()), // human-readable, e.g. "horario linha 14: hora inválida '7.30'"
   }),
 });
 export type SiteContent = z.infer<typeof SiteContent>;
+
+// ---------------------------------------------------------------------------
+// Admin panel (v9). See docs/CONTENT_CONTRACT.md → "Admin store".
+
+/** What the admin panel edits: the whole content except `meta`, which the source fills in when it loads. */
+export const EditableContent = SiteContent.omit({ meta: true });
+export type EditableContent = z.infer<typeof EditableContent>;
+
+export const VersionStatus = z.enum(['published', 'archived']);
+export type VersionStatus = z.infer<typeof VersionStatus>;
+
+/** One publish. Versions are immutable; the open draft is not a version (see ContentStore). */
+export const VersionInfo = z.object({
+  id: z.string(),
+  status: VersionStatus, // exactly one version is `published` at a time
+  createdAt: z.string(), // ISO 8601, when it was published
+  author: z.string(), // email of who published it
+  note: z.string().optional(), // "Novo horário de sábado"
+  basedOn: z.string().optional(), // version the draft started from (absent for the first one)
+});
+export type VersionInfo = z.infer<typeof VersionInfo>;
 export type Localized = z.infer<typeof Localized>;
 export type Weekday = z.infer<typeof Weekday>;
 export type ClassKind = z.infer<typeof ClassKind>;

@@ -47,6 +47,16 @@ Branch `data/sheets`. Details for both of us in **`docs/SHEET.md`** (tabs, colum
 - Deploy: Vercel project + rewrite in nicolino.zip (Nico, separate PR).
 - Sheet: Apps Script "Site → Publicar alterações" (POSTs `/api/revalidate`), checkboxes/dropdowns/protected header, grey example row per tab, LEIA-ME in PT for the gym (Juanpi).
 
+## Update — admin store contract, draft (Juanpi, 2026-11-11)
+Branch `contract/content-store` (on top of `main` 989478a). **Draft for Nico's review**; nothing live changes.
+- Context: Nico's admin prototype (nicolino.zip/testsite/caravelas/admin/prototipo) is a mock-up; Google suspended the site's Cloud account again (2026-11-10), so the service-account work (Phase 0) is on hold and the plan leans on our own DB (ADMIN.md §11, option B).
+- `schema.ts`: `meta.source` + `'db'`, `EditableContent`, `VersionStatus`, `VersionInfo`.
+- `src/content/store/`: `types.ts` (`ContentStore`, `Draft`, errors), `guards.ts` (`checkContent`, ADMIN.md §6), `memory.ts` (reference implementation, also usable by the panel before there is a DB), tests (`memory.test.ts`, `guards.test.ts`).
+- Contract notes: `docs/CONTENT_CONTRACT.md` v9 + "Admin store".
+- Tests ran in a Linux sandbox with a `node:test` shim (13/13). **`pnpm test` and `pnpm typecheck` still to run on a real checkout.**
+- Review notes from the prototype: claude/revision-prototipo-panel.md in the Claude project "Caravelas" (Spanish).
+- Next: Nico reviews the interface; then `data/db` (Postgres store + `db` source + import from the sheet) and the panel wired to the memory store.
+
 ## Hero credential badges
 - `src/components/Hero/Badges.tsx`: CrossFit Affiliates (→ `config.affiliateHref`), Google rating (→ maps.app.goo.gl link), Wodily Top 1 Lisboa (→ wodily.com/city/pt/lisbon). SVGs in `public/assets/badge-*.svg` (Wodily's embedded PNG downsampled to 700px).
 - The Google rating (4.9, "more than 100 reviews") is baked into the SVG artwork: re-export it when the number changes.
