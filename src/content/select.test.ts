@@ -54,6 +54,13 @@ describe('buildScheduleGrid', () => {
     expect(g.days).toContain('sun');
     expect(g.cells['10:00']!.sun).toHaveLength(2);
   });
+  it('leaves a time cell empty when its slot is disabled, without dropping the time row', () => {
+    const hidden = { ...slot('1', 'mon', '19:00'), enabled: false };
+    const g = buildScheduleGrid([hidden, slot('2', 'tue', '19:00')]);
+    expect(g.times).toEqual(['19:00']);
+    expect(g.cells['19:00']!.mon).toBeUndefined();
+    expect(g.cells['19:00']!.tue).toHaveLength(1);
+  });
 });
 
 describe('lisbonToday', () => {
