@@ -86,6 +86,14 @@ Branch `contract/content-store` (on top of `main` 989478a). **Draft for Nico's r
 - Review notes from the prototype: claude/revision-prototipo-panel.md in the Claude project "Caravelas" (Spanish).
 - Next: Nico reviews the interface; then `data/db` (Postgres store + `db` source + import from the sheet) and the panel wired to the memory store.
 
+## Update — admin panel prototype on `ui/admin-panel` (Nico, 2026-11-11)
+- Branch `ui/admin-panel` (rebased on `main` after PRs #2–#4 were merged): `/admin` dashboard (schedule grid editor, marquee/booking button, header/footer data), shadcn/ui components, Google login routes under `src/app/api/admin/`, Neon-backed content (`src/lib/admin-content.ts`, `src/content/sources/db.ts`, `scripts/seed-admin-db.mjs`, `docs/ADMIN_SETUP.md`), mock at `/admin/prototipo`.
+- Contract changes it relies on are split into PR #5 (`contract/schedule-enabled`: `ScheduleSlot.enabled`, `SiteConfig.marqueeEnabled`, v10). Until #5 merges, this branch carries the same lines; rebase drops the duplicates.
+- Overlap to settle with Juanpi: this branch talks to Neon directly, while `main` now has the `ContentStore` contract (`src/content/store/`, in-memory reference). Plan: put the panel behind `ContentStore` and let `data/db` implement it, instead of two DB layers.
+- `/api/revalidate` now also calls `revalidateTag('site-content')` (merged with Juanpi's hardened version); `sheets.ts` fetch is tagged `site-content`.
+- `pnpm test` 144/144, `pnpm typecheck`, `pnpm build` (also with `BASE_PATH=/testsite/caravelas`, `CONTENT_SOURCE=fixture`) pass.
+- `next build` currently prints a Next.js security-advisory reminder and stops the first run of each build; re-running passes. Upgrading Next is a separate decision.
+
 ## Hero credential badges
 - `src/components/Hero/Badges.tsx`: CrossFit Affiliates (→ `config.affiliateHref`), Google rating (→ maps.app.goo.gl link), Wodily Top 1 Lisboa (→ wodily.com/city/pt/lisbon). SVGs in `public/assets/badge-*.svg` (Wodily's embedded PNG downsampled to 700px).
 - The Google rating (4.9, "more than 100 reviews") is baked into the SVG artwork: re-export it when the number changes.

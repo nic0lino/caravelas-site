@@ -28,7 +28,7 @@ export async function fetchSheetTabs(id: string, key: string): Promise<SheetTabs
   try {
     res = await fetch(`${API}/${encodeURIComponent(id)}/values:batchGet?${params}`, {
       signal: AbortSignal.timeout(TIMEOUT_MS),
-      next: { revalidate: 300 }, // same as the pages; the "Publicar" button bypasses it via revalidatePath
+      next: { revalidate: 300, tags: ['site-content'] },
     });
   } catch (e) {
     throw new Error(`Sheets: sem resposta da Google (${(e as Error).name})`);

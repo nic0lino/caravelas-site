@@ -1,6 +1,6 @@
 # Internal admin panel — proposal (draft for Juanpi + Nico)
 
-Status: **proposal**, nothing built. Written 2026-10-12 after the Google Sheet was blocked by Google ("Terms of
+Status: **historical proposal**. A simpler first version is implemented; see [ADMIN_SETUP.md](./ADMIN_SETUP.md) for its current scope and setup. Written 2026-10-12 after the Google Sheet was blocked by Google ("Terms of
 Service") and the owners asked for a sturdier way for the gym to change schedules, prices and contact data.
 
 ## 1. Goal

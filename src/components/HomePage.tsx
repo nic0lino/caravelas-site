@@ -27,7 +27,7 @@ export async function HomePage({ lang }: { lang: Lang }) {
       <Header lang={lang} t={t} config={content.config} />
       <main>
         <Hero lang={lang} t={t} config={content.config} features={content.features} />
-        <Marquee items={marquee} label={t.marquee.label} pauseLabel={t.marquee.pause} playLabel={t.marquee.play} />
+        {content.config.marqueeEnabled !== false && <Marquee items={marquee} label={t.marquee.label} pauseLabel={t.marquee.pause} playLabel={t.marquee.play} />}
         <ScheduleSection lang={lang} t={t} content={content} />
         <Team lang={lang} t={t} coaches={content.coaches} config={content.config} />
       </main>

@@ -1,4 +1,4 @@
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { LANGS, langPath } from '@/content/langs';
 import { clientIp, createLimiter, secretConfigured, secretMatches } from './guard';
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
     return json({ ok: false, error: 'unauthorized' }, 401);
   }
 
+  revalidateTag('site-content', { expire: 0 });
   const paths = [...LANGS.map(langPath), '/status'];
   for (const p of paths) revalidatePath(p);
   return json({ ok: true, revalidated: paths, at: new Date().toISOString() }, 200);

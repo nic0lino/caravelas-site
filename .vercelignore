@@ -1,0 +1,8 @@
+source/
+Guardado automático/
+*.aep
+*.ai
+/animacion*.json
+/*.svg
+AGENTS.md
+docs/
