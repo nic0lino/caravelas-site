@@ -9,15 +9,31 @@ import { importContent, type Db } from '../store/postgres/store';
 import { PublishBlockedError } from '../store/types';
 
 /**
- * A folder with one CSV per sheet tab (File → Download → CSV in Google Sheets, once per tab), named
- * after the tab: config.csv, horario.csv, precos.csv, equipa.csv, destaques.csv, marquesina.csv.
- * Returns the same grids the Sheets API gives, so `parseSheet` reads them unchanged.
+ * Tab name from a CSV file name. Google Sheets downloads a tab as "<spreadsheet> - <tab>.csv"
+ * (e.g. "Caravelas — Site - horario.csv"); a file renamed to just "<tab>.csv" works too.
+ * The tab is what follows the LAST " - ", so a spreadsheet title with " - " in it is fine.
+ */
+export function tabNameFromFile(file: string): string {
+  const base = file.replace(/\.csv$/i, '');
+  const i = base.lastIndexOf(' - ');
+  return (i >= 0 ? base.slice(i + 3) : base).trim();
+}
+
+/**
+ * A folder with one CSV per sheet tab (File → Download → CSV in Google Sheets, once per tab):
+ * config, horario, precos, equipa, destaques, marquesina (other tabs, like LEIA-ME, are ignored by
+ * `parseSheet`). Returns the same grids the Sheets API gives, so `parseSheet` reads them unchanged.
+ * Two files for the same tab are an error: the import must not pick one of them silently.
  */
 export async function readCsvTabs(dir: string): Promise<SheetTabs> {
   const tabs: SheetTabs = {};
+  const from: Record<string, string> = {};
   for (const file of (await readdir(dir)).sort()) {
     if (!file.toLowerCase().endsWith('.csv')) continue;
-    tabs[file.slice(0, -4)] = parseCsv(await readFile(join(dir, file), 'utf8'));
+    const tab = tabNameFromFile(file);
+    if (from[tab]) throw new Error(`Two CSV files for the tab "${tab}": "${from[tab]}" and "${file}"`);
+    from[tab] = file;
+    tabs[tab] = parseCsv(await readFile(join(dir, file), 'utf8'));
   }
   return tabs;
 }

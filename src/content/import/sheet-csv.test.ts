@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { createPostgresStore } from '../store/postgres/store';
 import { PublishBlockedError } from '../store/types';
-import { importSheetTabs, readCsvTabs } from './sheet-csv';
+import { importSheetTabs, readCsvTabs, tabNameFromFile } from './sheet-csv';
 
 // The smallest sheet the parser accepts, as Google Sheets would export it (quotes, multi-line bio).
 const CSV: Record<string, string> = {
@@ -32,9 +32,9 @@ const CSV: Record<string, string> = {
   marquesina: 'ativo,destaque_pt,texto_pt,fim,ordem\r\nTRUE,Open Day,traga um amigo,31/12/2025,1\r\n',
 };
 
-async function csvDir(overrides: Record<string, string> = {}) {
+async function csvDir(overrides: Record<string, string> = {}, fileName = (tab: string) => `${tab}.csv`) {
   const dir = await mkdtemp(join(tmpdir(), 'caravelas-csv-'));
-  for (const [tab, text] of Object.entries({ ...CSV, ...overrides })) await writeFile(join(dir, `${tab}.csv`), text, 'utf8');
+  for (const [tab, text] of Object.entries({ ...CSV, ...overrides })) await writeFile(join(dir, fileName(tab)), text, 'utf8');
   await writeFile(join(dir, 'LEIA-ME.txt'), 'not a tab', 'utf8');
   return dir;
 }
@@ -48,6 +48,20 @@ describe('sheet CSV import', () => {
     const tabs = await readCsvTabs(await csvDir());
     expect(Object.keys(tabs).sort()).toEqual(['config', 'destaques', 'equipa', 'horario', 'marquesina', 'precos']);
     expect(tabs.equipa?.[1][2]).toBe('Formada pela UniBH.\n\nÉ "CF-L2", treinadora.');
+  });
+
+  it('reads the file names Google Sheets gives a downloaded tab', async () => {
+    expect(tabNameFromFile('Copia de Caravelas — Site - horario.csv')).toBe('horario');
+    expect(tabNameFromFile('A - B - precos.CSV')).toBe('precos');
+    expect(tabNameFromFile('equipa.csv')).toBe('equipa');
+    const tabs = await readCsvTabs(await csvDir({}, (tab) => `Caravelas — Site - ${tab}.csv`));
+    expect(Object.keys(tabs).sort()).toEqual(['config', 'destaques', 'equipa', 'horario', 'marquesina', 'precos']);
+  });
+
+  it('refuses two files for the same tab', async () => {
+    const dir = await csvDir();
+    await writeFile(join(dir, 'Caravelas — Site - precos.csv'), CSV.precos, 'utf8');
+    await expect(readCsvTabs(dir)).rejects.toBeInstanceOf(Error);
   });
 
   it('publishes the sheet as v1 of a new site, with counts and warnings', async () => {
