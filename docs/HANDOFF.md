@@ -84,6 +84,7 @@ Branch `data/db`, on top of `contract/content-store`. Nothing live changes (no `
 - `store.ts`: `createPostgresStore(db, siteId)` (optimistic draft writes are single atomic statements; publish locks the draft row) and `importContent(db, site, content, author)` (creates the site + v1, refuses if versions exist).
 - `contract-suite.ts`: the ContentStore behaviour, run by `memory.test.ts` and `postgres/postgres.test.ts` (PGlite = real Postgres in-process, one site per test).
 - New deps: `drizzle-orm`, `@electric-sql/pglite`, dev `drizzle-kit`. Needs interactive transactions → in production use Neon's WebSocket driver (`drizzle-orm/neon-serverless`), not the HTTP one.
+- Import from the sheet (2026-11-11): `src/content/parse/csv.ts` (RFC 4180, tested), `src/content/import/sheet-csv.ts` (`readCsvTabs` → the same `parseSheet` → publish checks → `importContent`), and `pnpm db:import <folder>` (`scripts/import-sheet-csv.ts`, runs with `tsx`) into a local PGlite in `.data/pglite` (git-ignored; delete it to start over). The seed CSVs of 2026-10-09 import cleanly (47 classes, 4 prices, 2 coaches, 4 features, 3 notices). Re-export the CSVs from the real sheet before the real import: it changed after the seed.
 - Next: `db` source in `getSiteContent()` + Neon (needs an account owner: NOT the site's Google account), import script from the sheet CSVs, region EU for both Neon and Vercel functions.
 
 ## Update — admin store contract, draft (Juanpi, 2026-11-11)
