@@ -1,10 +1,13 @@
 import { migrate } from 'drizzle-orm/pglite/migrator';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { SiteContent } from '../schema';
 import { seed } from '../store/contract-suite';
 import { connect } from '../store/postgres/connect';
 import { createPostgresStore, importContent } from '../store/postgres/store';
 import { loadPublished } from './db';
+
+// db.ts is server-only (it throws outside a React Server Component); vitest is neither.
+vi.mock('server-only', () => ({}));
 
 // One in-memory PGlite for the file, through the same connect() the site uses (DATABASE_URL=pglite:).
 const ready = connect('pglite:').then(async (db) => {
