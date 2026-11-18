@@ -87,6 +87,16 @@ Branch `data/db`, on top of `contract/content-store`. Nothing live changes (no `
 - Import from the sheet (2026-11-11): `src/content/parse/csv.ts` (RFC 4180, tested), `src/content/import/sheet-csv.ts` (`readCsvTabs` → the same `parseSheet` → publish checks → `importContent`), and `pnpm db:import <folder>` (`scripts/import-sheet-csv.ts`, runs with `tsx`) into a local PGlite in `.data/pglite` (git-ignored; delete it to start over). The seed CSVs of 2026-10-09 import cleanly (47 classes, 4 prices, 2 coaches, 4 features, 3 notices). Re-export the CSVs from the real sheet before the real import: it changed after the seed.
 - Next: `db` source in `getSiteContent()` + Neon (needs an account owner: NOT the site's Google account), import script from the sheet CSVs, region EU for both Neon and Vercel functions.
 
+## Update — `db` source (Juanpi, 2026-11-13)
+Branch `data/db-source`, on top of `data/db` (#9). Open its PR after #9 merges.
+- `CONTENT_SOURCE=db` → `sources/db.ts`: the **published** version of `SITE_ID` (default `caravelas`) through `createPostgresStore(...).getPublished()`; drafts never reach the public site. Nothing published / DB down → throws, so ISR keeps the last good page. Non-blocking publish checks (expired notice…) become `meta.warnings` (shown on `/status`).
+- `store/postgres/connect.ts`: `DATABASE_URL` = `postgres(ql)://…` → Neon WebSocket `Pool` (`drizzle-orm/neon-serverless`; use the pooled string), or `pglite:<folder>` → local PGlite (`pglite:` alone = in-memory). One connection per instance; errors never echo the URL.
+- Local site from the DB: `pnpm db:import <csv folder>` then `CONTENT_SOURCE=db DATABASE_URL=pglite:.data/pglite pnpm dev`. `next.config.ts`: `serverExternalPackages: ['@electric-sql/pglite']` (PGlite loads its WASM at runtime).
+- **Needs `pnpm add @neondatabase/serverless@^1.2.0`** (same range as #6) before typecheck/CI pass; not added here because the lockfile has to be regenerated with pnpm.
+- Import checked with the sheet export of 2026-11-13 (47 classes, 4 prices, 2 coaches, 4 features, 3 notices; vs the seed: one class CrossFit → Open Box, one coach added, Drop-In €20 → €30, featured plan changed). `readCsvTabs` now accepts Google's "<spreadsheet> - <tab>.csv" names.
+- Data note: the sheet has **two** featured plans (Drop-In and 2 Aulas); the UI styles only the first. Decide with the gym, then maybe a publish warning in `checkContent` (contract PR).
+- Next: `pnpm db:migrate` for Neon (migrations are only applied by tests and `db:import` today), import into Neon once it exists (owner: gym owner's account), then switch Vercel `CONTENT_SOURCE` to `db`.
+
 ## Update — admin store contract, draft (Juanpi, 2026-11-11)
 Branch `contract/content-store` (on top of `main` 989478a). **Draft for Nico's review**; nothing live changes.
 - Context: Nico's admin prototype (nicolino.zip/testsite/caravelas/admin/prototipo) is a mock-up; Google suspended the site's Cloud account again (2026-11-10), so the service-account work (Phase 0) is on hold and the plan leans on our own DB (ADMIN.md §11, option B).

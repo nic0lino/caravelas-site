@@ -11,9 +11,12 @@ importers:
       '@electric-sql/pglite':
         specifier: ^0.5.16
         version: 0.5.16
+      '@neondatabase/serverless':
+        specifier: ^1.2.1
+        version: 1.2.1
       drizzle-orm:
         specifier: ^0.45.4
-        version: 0.45.4(@electric-sql/pglite@0.5.16)
+        version: 0.45.4(@electric-sql/pglite@0.5.16)(@neondatabase/serverless@1.2.1)
       lottie-web:
         specifier: ^5.13.0
         version: 5.13.0
@@ -689,6 +692,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@neondatabase/serverless@1.2.1':
+    resolution: {integrity: sha512-PI2JjuyEFE7oZDTkV/s6WP4KEceCwnjQHClfunhysuIATtvcVTBLdA4UgHTnJo7C0mkK+OZ6U7SV1NDnYa0HgA==}
+    engines: {node: '>=19.0.0'}
 
   '@next/env@16.4.0':
     resolution: {integrity: sha512-pyLlT5oafGlX8X7xjgGNXz5dNIDSxREm+qD6i9VLSZiZFopA/XWl8NM/KPmLx/8EG/++c49iid3gNWSQW1+2dQ==}
@@ -2019,6 +2026,8 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
+  '@neondatabase/serverless@1.2.1': {}
+
   '@next/env@16.4.0': {}
 
   '@next/swc-darwin-arm64@16.4.0':
@@ -2282,9 +2291,10 @@ snapshots:
       esbuild: 0.25.12
       tsx: 4.23.15
 
-  drizzle-orm@0.45.4(@electric-sql/pglite@0.5.16):
+  drizzle-orm@0.45.4(@electric-sql/pglite@0.5.16)(@neondatabase/serverless@1.2.1):
     optionalDependencies:
       '@electric-sql/pglite': 0.5.16
+      '@neondatabase/serverless': 1.2.1
 
   enhanced-resolve@5.26.0:
     dependencies:

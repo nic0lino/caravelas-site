@@ -2,6 +2,7 @@ import 'server-only';
 import { SiteContent } from './schema';
 import { loadFixture } from './sources/fixture';
 import { loadSheets } from './sources/sheets';
+import { loadDb } from './sources/db';
 
 /**
  * The only entry point the UI uses. Returns a validated SiteContent; localized
@@ -15,6 +16,8 @@ export async function getSiteContent(): Promise<SiteContent> {
       return loadFixture();
     case 'sheets':
       return loadSheets();
+    case 'db':
+      return loadDb();
     default:
       throw new Error(`Unknown CONTENT_SOURCE "${source}"`);
   }
