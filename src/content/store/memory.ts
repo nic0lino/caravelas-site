@@ -1,14 +1,8 @@
-import { EditableContent, type VersionInfo } from '../schema';
+import type { EditableContent, VersionInfo } from '../schema';
 import { lisbonToday } from '../select';
-import { checkContent, type Issue } from './guards';
-import {
-  type ContentStore,
-  type Draft,
-  DraftConflictError,
-  InvalidContentError,
-  NotFoundError,
-  PublishBlockedError,
-} from './types';
+import { checkContent } from './guards';
+import { type ContentStore, type Draft, DraftConflictError, NotFoundError, PublishBlockedError } from './types';
+import { validateContent as validate } from './validate';
 
 interface Options {
   /** Content to start from; it becomes version 1 (published by `seedAuthor`). */
@@ -29,13 +23,6 @@ export function createMemoryStore(opts: Options = {}): ContentStore {
 
   const clone = <T>(v: T): T => structuredClone(v);
   const published = () => versions.find((v) => v.version.status === 'published') ?? null;
-
-  function validate(content: unknown): EditableContent {
-    const r = EditableContent.safeParse(content);
-    if (r.success) return r.data;
-    const issues: Issue[] = r.error.issues.map((i) => ({ path: i.path.join('.'), message: i.message }));
-    throw new InvalidContentError(issues);
-  }
 
   function currentDraft(): Draft | null {
     if (draft) return draft;
@@ -118,7 +105,8 @@ export function createMemoryStore(opts: Options = {}): ContentStore {
     async restore(versionId, author, expectedRevision) {
       const v = versions.find((x) => x.version.id === versionId);
       if (!v) throw new NotFoundError(`versão ${versionId}`);
-      return writeDraft(clone(v.content), author, expectedRevision, published()?.version.id);
+      // Re-validate: an old version may not fit the current schema any more.
+      return writeDraft(validate(clone(v.content)), author, expectedRevision, published()?.version.id);
     },
   };
 }

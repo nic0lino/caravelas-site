@@ -12,3 +12,6 @@ caravelas-site-spec.md
 .claude/
 .vercel
 .env*
+
+# local databases (pnpm db:import)
+.data/
