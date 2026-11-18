@@ -70,8 +70,8 @@ Branch `data/sheets`. Details for both of us in **`docs/SHEET.md`** (tabs, colum
 - Compare against Figma at 1728 / 440 widths (only checked by eye at 1200, 599 and 375); Playwright smoke test; Lighthouse on the deployed URL (not run).
 - Hero: separate portrait video crop for mobile if needed; the source video is a split-screen of two clips, so check the crop on phones. Poster is a plain frame, not a pre-rendered shader frame.
 - Marquee: verify no jump after font load / resize on a real device; reduced-motion CSS is untested.
-- Privacy / Cookies pages (footer links are `#`) and Livro de Reclamações logo (text link for now).
-- Deploy: Vercel project + rewrite in nicolino.zip (Nico, separate PR).
+- ~~Privacy / Cookies pages~~ done (legal texts ported, see above). Livro de Reclamações logo (text link for now).
+- ~~Deploy: Vercel project + rewrite in nicolino.zip~~ done (see Deploy).
 - Sheet: Site → Admin → Configurar publicação once Nico shares `REVALIDATE_SECRET`, then test Publicar (Juanpi).
 - ~~Sheet: latest `apps-script/Code.gs` in the real sheet + Configurar folha again~~ done 2026-10-11.
 - Sheet (optional): switch from API key + public link to a service account + private sheet (see Incident).
@@ -108,7 +108,8 @@ Branch `contract/content-store` (on top of `main` 989478a). **Draft for Nico's r
 - Nico: send Juanpi the `REVALIDATE_SECRET` (privately) so the sheet's "Publicar" menu can be configured.
 - Nico: add Juanpi as a GitHub collaborator (he works from a fork until then).
 - Nico (Vercel, Production): add `SHEETS_ID` and `SHEETS_API_KEY` (Juanpi sends them privately; the key was rotated on 2026-10-11, use the new one), then switch `CONTENT_SOURCE` to `sheets`. Until then production stays on the fixture, so merging `data/sheets` changes nothing live.
-- Nico: pin pnpm in `package.json` (`"packageManager": "pnpm@10.28.0"`): without it corepack picks pnpm 12, which Node 22's corepack can't start (`Cannot find module …pnpm.cjs`); the lockfile is v9.0.
+- ~~Nico: pin pnpm in `package.json`~~ done in `chore/repo-hygiene` (`"packageManager": "pnpm@10.28.0"`; lockfile stays v9.0).
+- Nico (repo hygiene, 2026-11-13): merge #7 (Next 16.4.6, security) first; in GitHub Settings → Branches, protect `main` and require the CI `check` status check; on #6, move `shadcn` (the CLI) to `devDependencies` and drop the Sheet link from `docs/ADMIN_SETUP.md` (the repo is public). Node is not pinned in `engines` on purpose: check which Node version the Vercel project uses, then set the same here and in CI.
 - Contract (Nico/Juanpi, `contract:` PR): optionally add `wodilyHref` and `googleReviewsHref` to `SiteConfig` so the badge links can be edited from the sheet.
 
 ## Wix inventory (Juanpi, 2026-10-12)

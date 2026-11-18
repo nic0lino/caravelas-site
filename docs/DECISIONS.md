@@ -5,6 +5,8 @@ One line per decision, newest first. Status: **proposed** (written, not agreed y
 
 | Date | Decision | Status | Who |
 |---|---|---|---|
+| 2026-11-13 | Admin panel follows ADMIN.md: draft → publish → version history (restore), not save = publish. Storage is the `ContentStore` from `data/db`; the panel's direct Neon layer (`src/lib/admin-content.ts` in #6) goes behind it. | agreed (Nico: confirm in this PR) | Juanpi |
+| 2026-11-13 | The Google OAuth client for the admin login is created in the gym owner's Google account, not the site's dedicated account (suspended twice). | agreed (Nico: confirm in this PR) | Juanpi |
 | 2026-10-14 | Domain stays registered at Wix; DNS (`A` + `CNAME`) points to Vercel; keep MX/SPF/DKIM for email. Wix is not used to host the app. (ADMIN.md §11.3) | proposed | Juanpi |
 | 2026-10-14 | Panel built against a `ContentStore` interface, so storage (Sheet vs DB) can be decided later; contract first via a `contract:` PR. (ADMIN.md §11.2) | proposed | Juanpi |
 | 2026-10-14 | Content storage for the product: own DB + own panel (option B); the Sheet stays as Caravelas' interim source and as an import format. (ADMIN.md §11.1) | proposed | Juanpi |
